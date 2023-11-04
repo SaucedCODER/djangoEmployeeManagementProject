@@ -1,0 +1,104 @@
+/* Google Font Import - Poppins */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    overflow-x: hidden;
+}
+.toastZ{
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    border-radius: 12px;
+    background: #fff;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    border-left: 6px solid #4070f4;
+    overflow: hidden;
+    transform: translateX(calc(100% + 30px));
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+    z-index: 2000 !important;
+}
+
+.toastZ.active{
+    transform: translateX(0%);
+}
+
+.toastZ .toast-content{
+    display: flex;
+    align-items: center;
+}
+
+.toast-content .check{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    background-color: #4070f4;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+.toast-content .messageToast{
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+}
+
+.messageToast .text{
+    font-size: 20px;
+    font-weight: 400;;
+    color: #666666;
+}
+
+.messageToast .text.text-1{
+    font-weight: 600;
+    color: #333;
+}
+
+.toastZ .close-toast{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.toastZ .close-toast:hover{
+    opacity: 1;
+}
+
+.toastZ .progress{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: #ddd;
+}
+
+.toastZ .progress:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #4070f4;
+}
+
+.progress.active:before{
+    animation: progress1 5s linear forwards;
+}
+
+@keyframes progress1 {
+    100%{
+        right: 100%;
+    }
+}
+

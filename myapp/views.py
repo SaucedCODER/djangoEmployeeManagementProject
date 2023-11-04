@@ -6,11 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # Create your views here.
+
 def home(request):
     if request.user.is_authenticated:
-        return render(request,'admins/index.html',{})
+        return render(request,'home.html',{})
     return render(request,'login.html',{})
-
 
 def login_user(request):
     if request.method == 'POST':
@@ -18,11 +18,15 @@ def login_user(request):
        password = request.POST['password']
        user = authenticate(request, username=username, password=password)
        if user is not None:
-          messages.success(request,'Your now logged in!')
+          messages.success(request, "You Have Been Logged In!")
           login(request, user) 
+          return redirect('home')
+       else:
+          messages.success(request, "There Was An Error Logging In, Please Try Again...")
           return redirect('home')
     return render(request,'login.html',{})
     
 def logout_user(request):
     logout(request)
+    messages.success(request, "You Have Been Logged Out")
     return redirect('home')
