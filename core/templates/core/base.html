@@ -1,6 +1,7 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,7 +53,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
                 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center"  href="{% url 'home' %}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"  href="{% url 'core:home' %}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -64,7 +65,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'home' %}">
+                <a class="nav-link" href="{% url 'core:home' %}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -82,13 +83,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <span>Projects</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <h6 class="collapse-header"> Manage</h6>
+                        <a class="collapse-item" href="cards.html">View Projects</a>
+                        <a class="collapse-item" href="{% url 'projects:newProject' %}">Create New Project</a>
                     </div>
                 </div>
             </li>
@@ -346,9 +347,12 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                    {% if user.is_authenticated %}
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username }}</span>
                                     <img class="img-profile rounded-circle"
                                         src="{% static 'img/undraw_profile.svg' %}">
+                                    {% endif %}
+
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -384,7 +388,7 @@
                     <!-- /.container-fluid -->
                 </div>
                 <!-- End of Main Content -->
-        {% block footer %}{% endblock %}
+                {% block footer %}{% endblock %}
 
             </div>
             <!-- End of Content Wrapper -->
@@ -410,7 +414,7 @@
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+                        <a class="btn btn-primary" href="{% url 'core:logout' %}">Logout</a>
                     </div>
                 </div>
             </div>

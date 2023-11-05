@@ -1,0 +1,22 @@
+
+{% extends "core/base.html" %} 
+{% block title %}Employee Page - Dashboard{% endblock %}
+{% load static %}
+{% block content %}
+<div class="card shadow mx-5 my-3">
+    <div class="card-header px-5 py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Create New Project</h6>
+     
+    </div>
+    <div class="card-body p-5">
+        <form method="POST" action="{% url 'projects:newProject' %}">
+            {% csrf_token %}
+        
+            {{ form.as_p }}
+        
+        <br/>
+          <button type="submit" class="btn btn-secondary">Add Project</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

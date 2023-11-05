@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "core/base.html" %}
 {% block sidebar %}{% endblock %}
 {% block topbar %}{% endblock %}
 {% block title %}Login Page{% endblock %}
@@ -23,7 +23,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">CivilTech Innovation</h1>
                                     </div>
-                                    <form class="user" method="POST" action="{% url 'login' %}">
+                                    <form class="user" method="POST" action="{% url 'core:login' %}">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"

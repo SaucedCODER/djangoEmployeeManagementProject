@@ -9,8 +9,8 @@ from django.contrib import messages
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request,'home.html',{})
-    return render(request,'login.html',{})
+        return render(request,'core/home.html',{})
+    return render(request,'core/login.html',{})
 
 def login_user(request):
     if request.method == 'POST':
@@ -20,13 +20,13 @@ def login_user(request):
        if user is not None:
           messages.success(request, "You Have Been Logged In!")
           login(request, user) 
-          return redirect('home')
+          return redirect('core:home')
        else:
           messages.error(request, "There Was An Error Logging In, Please Try Again...")
-          return redirect('home')
-    return render(request,'login.html',{})
+          return redirect('core:home')
+    return render(request,'core/login.html',{})
     
 def logout_user(request):
     logout(request)
     messages.success(request, "You Have Been Logged Out")
-    return redirect('home')
+    return redirect('core:home')
