@@ -1,0 +1,46 @@
+{% extends "core/base.html" %} 
+{% block title %}Employee Page - Dashboard{% endblock %}
+{% load static %}
+{% block extra_css%}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+ {% endblock %}
+{% block content %}
+    <div class="card shadow mx-5">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+          
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <table id="projectsTB" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Row 1 Data 1</td>
+                        <td>Row 1 Data 2</td>
+                    </tr>
+                    <tr>
+                        <td>Row 2 Data 1</td>
+                        <td>Row 2 Data 2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+   
+{% endblock %}
+{% block extra_js%} 
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
+<script>
+    $(document).ready( function () {
+        $('#projectsTB').DataTable();
+    } );
+</script>
+{% endblock %}

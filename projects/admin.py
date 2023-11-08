@@ -6,7 +6,6 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ['name', 'status']
     list_filter = ['status']
     search_fields = ['name', 'status']
-
     class Meta:
         model = Project
 

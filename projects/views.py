@@ -19,7 +19,7 @@ def projects(request):
         'tasks' : tasks,
         'overdue_tasks' : overdue_tasks,
     }
-    return render(request, 'projects/projects.html', context)
+    return render(request, 'projects.html', context)
 
 def newTask(request):
     if request.method == 'POST':
@@ -34,7 +34,7 @@ def newTask(request):
             messages.success(request, "Congratulations, your Task was created!")
             return render(request, 'core/home.html', context)
         else:
-            return render(request, 'projects/createtask.html', context)
+            return render(request, 'createtask.html', context)
     else:
         form = TaskCreationForm()
         context = {
