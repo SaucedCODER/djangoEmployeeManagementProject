@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Avg
 from projects.models import Project
 from projects.models import Task
 from projects.forms import TaskCreationForm
 from projects.forms import ProjectCreationForm
 from django.contrib import messages
+from datetime import datetime
 
 
 # Create your views here.
@@ -13,11 +14,14 @@ def projects(request):
     avg_projects = Project.objects.all().aggregate(Avg('complete_per'))['complete_per__avg']
     tasks = Task.objects.all()
     overdue_tasks = tasks.filter(due='2')
+    current_date = datetime.now()
     context = {
         'avg_projects' : avg_projects,
         'projects' : projects,
         'tasks' : tasks,
         'overdue_tasks' : overdue_tasks,
+        'current_date': current_date
+        
     }
     return render(request, 'projects.html', context)
 
@@ -63,3 +67,29 @@ def newProject(request):
             'form': form,
         }
         return render(request,'createproject.html', context)
+    
+def viewProject(request, pk):
+    if request.user.is_authenticated:
+        # Look Up Records
+        project = Project.objects.get(id=pk)
+        return render(request, 'manageproject.html', {'project':project})
+    else:
+        messages.success(request, "You Must Be Logged In To View That Page...")
+        return redirect('core:login')
+def deleteProject(request, pk):
+    pass
+def updateProject(request, pk):
+    pass
+    
+    # def update_record(request, pk):
+	# if request.user.is_authenticated:
+	# 	current_record = Record.objects.get(id=pk)
+	# 	form = AddRecordForm(request.POST or None, instance=current_record)
+	# 	if form.is_valid():
+	# 		form.save()
+	# 		messages.success(request, "Record Has Been Updated!")
+	# 		return redirect('home')
+	# 	return render(request, 'update_record.html', {'form':form})
+	# else:
+	# 	messages.success(request, "You Must Be Logged In...")
+	# 	return redirect('home')

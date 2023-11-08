@@ -16,31 +16,64 @@
             <table id="projectsTB" class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Column 1</th>
-                        <th>Column 2</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Deadline</th>
+                        <th>Progress</th>
+                        <th>Actions</th>
+
+                    
+
                     </tr>
                 </thead>
                 <tbody>
+                    {% for project in projects %}
                     <tr>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
+                        <td>{{ project }}</td>
+                        <td> 
+                        {% if project.status == '1' %}
+                            <span class="text-danger">Stuck</span>
+                        {% elif project.status == '2' %}
+                            <span class="text-info">Working</span>
+                        {% else %}
+                            <span class="text-success">Done!</span>
+                        {% endif %}
+                        </td>
+                        <td>
+                            {{ project.dead_line }}
+                       </td>
+                        <td>{{ project.complete_per }}%</td>
+                        <td><div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-158px, 18px, 0px);">
+                                <a class="dropdown-item d-flex justify-content-around align-items-center" href="{% url 'projects:view' project.id %}"><span>View</span> <i class="fa-solid fa-eye "></i></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item d-flex justify-content-around align-items-center" href="{% url 'projects:update' project.id %}"><span>Update</span> <i class="fa-solid fa-pen-to-square"></i></a>
+                                <a class="dropdown-item d-flex justify-content-around align-items-center" href="{% url 'projects:delete' project.id %}"><span>Delete</span> <i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+                        </div></td>
                     </tr>
-                    <tr>
-                        <td>Row 2 Data 1</td>
-                        <td>Row 2 Data 2</td>
-                    </tr>
+                    {% endfor %}
+                  
                 </tbody>
             </table>
         </div>
     </div>
-   
+  
+
 {% endblock %}
 {% block extra_js%} 
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 
 <script>
     $(document).ready( function () {
-        $('#projectsTB').DataTable();
+        $('#projectsTB').DataTable({
+            columnDefs: [
+                { targets: -1, orderable: false } // Targets the last column and disables sorting
+            ]
+        });
     } );
 </script>
 {% endblock %}

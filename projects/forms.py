@@ -98,9 +98,10 @@ class ProjectCreationForm(forms.ModelForm):
         self.fields['status'].widget.attrs['class'] = 'form-control'
         self.fields['status'].widget.attrs['placeholder'] = 'Status'
         self.fields['dead_line'].widget.attrs['class'] = 'form-control'
-        self.fields['dead_line'].widget.attrs['placeholder'] = 'Dead Line, type a date'
+        self.fields['dead_line'].widget = forms.DateInput(attrs={'type': 'date', 'placeholder': 'Dead Line, type a date'})
+        
         self.fields['complete_per'].widget.attrs['class'] = 'form-control'
-        self.fields['complete_per'].widget.attrs['placeholder'] = 'Complete %'
+        self.fields['complete_per'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Complete %','min': 0, 'max': 100})
         self.fields['description'].widget.attrs['class'] = 'form-control'
         self.fields['description'].widget.attrs['placeholder'] = 'Type here the project description...'
         self.fields['assign'].widget.attrs['class'] = 'form-control'
