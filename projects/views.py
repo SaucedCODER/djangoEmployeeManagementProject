@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.db.models import Avg
 from projects.models import Project
@@ -79,7 +80,22 @@ def viewProject(request, pk):
 def deleteProject(request, pk):
     pass
 def updateProject(request, pk):
-    pass
+    if request.user.is_authenticated:
+        project = Project.objects.get(id=pk)
+        form = ProjectCreationForm(request.POST or None, instance=project)
+        
+        if form.is_valid():        
+            form.save()
+            next = request.POST.get('next', '/')
+            print(next)
+            messages.success(request, "Project Has Been Updated!")
+            return HttpResponseRedirect(next)
+        else:
+            return_url = request.GET.get('return_url', '/')
+            return render(request, 'updateproject.html', {'form':form,'return_url':return_url})
+    else:
+        messages.success(request, "You Must Be Logged In...")
+        return redirect('core:login')
     
     # def update_record(request, pk):
 	# if request.user.is_authenticated:
