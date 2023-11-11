@@ -17,12 +17,15 @@ def login_user(request):
        username = request.POST['username']
        password = request.POST['password']
        user = authenticate(request, username=username, password=password)
-       if user is not None:
-          messages.success(request, "You Have Been Logged In!")
-          login(request, user) 
-          return redirect('core:home')
+       if user is not None and user.is_staff is False:
+                login(request, user)
+                messages.success(request, "You Have Been Logged In!")
+                return redirect('core:home')
+       elif user and user.is_staff is True:
+                login(request, user)
+                return redirect('core:admin')
        else:
-          messages.error(request, "There Was An Error Logging In, Please Try Again...")
+          messages.error(request, "Wrong User Name Or Password") 
           return redirect('core:home')
     return render(request,'core/login.html',{})
     

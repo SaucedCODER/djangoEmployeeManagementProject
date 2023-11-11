@@ -22,7 +22,10 @@ class TaskCreationForm(forms.ModelForm):
     assign = forms.ModelMultipleChoiceField(queryset=User.objects.all())
     task_name = forms.CharField(max_length=80)
     status = forms.ChoiceField(choices=status)
-    due = forms.ChoiceField(choices=due)
+    start = forms.DateField()
+    end = forms.DateField()
+    challenges = forms.CharField(max_length=80)
+    progress_update = forms.CharField(max_length=80)
 
     class Meta:
         model = Task
@@ -34,12 +37,14 @@ class TaskCreationForm(forms.ModelForm):
         task.project = self.cleaned_data['project']
         task.task_name = self.cleaned_data['task_name']
         task.status = self.cleaned_data['status']
-        task.due = self.cleaned_data['due']
+        task.start = self.cleaned_data['start']
+        task.end = self.cleaned_data['end']
+        task.challenges = self.cleaned_data['challenges']
+        task.progress_update = self.cleaned_data['progress_update']
         task.save()
         assigns = self.cleaned_data['assign']
         for assign in assigns:
             task.assign.add((assign))
-
         if commit:
             task.save()
 
@@ -47,17 +52,40 @@ class TaskCreationForm(forms.ModelForm):
 
 
     def __init__(self, *args, **kwargs):
+       def __init__(self, *args, **kwargs):
         super(TaskCreationForm, self).__init__(*args, **kwargs)
-        self.fields['project'].widget.attrs['class'] = 'form-control'
-        self.fields['project'].widget.attrs['placeholder'] = 'Social Name'
-        self.fields['task_name'].widget.attrs['class'] = 'form-control'
-        self.fields['task_name'].widget.attrs['placeholder'] = 'Name'
-        self.fields['status'].widget.attrs['class'] = 'form-control'
-        self.fields['status'].widget.attrs['placeholder'] = 'Email'
-        self.fields['due'].widget.attrs['class'] = 'form-control'
-        self.fields['due'].widget.attrs['placeholder'] = 'City'
-        self.fields['assign'].widget.attrs['class'] = 'form-control'
-        self.fields['assign'].widget.attrs['placeholder'] = 'Found date'
+
+        self.fields['project'] = forms.ModelChoiceField(
+            queryset=Project.objects.all(),
+            widget=forms.Select(attrs={'class': 'form-select'})
+        )
+
+        self.fields['assign'] = forms.ModelMultipleChoiceField(
+            queryset=User.objects.all(),
+            widget=forms.SelectMultiple(attrs={'class': 'form-select'})
+        )
+        self.fields['task_name'] = forms.CharField(
+            max_length=80,
+            widget=forms.TextInput(attrs={'class': 'form-control'})
+        )
+        self.fields['status'] = forms.ChoiceField(
+            choices=status,
+            widget=forms.Select(attrs={'class': 'form-select'})
+        )
+        self.fields['start'] = forms.DateField(
+            widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
+        )
+        self.fields['end'] = forms.DateField(
+            widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
+        )
+        self.fields['challenges'] = forms.CharField(
+            max_length=80,
+            widget=forms.TextInput(attrs={'class': 'form-control'})
+        )
+        self.fields['progress_update'] = forms.CharField(
+            max_length=80,
+            widget=forms.TextInput(attrs={'class': 'form-control'})
+        )
 
 
 class ProjectCreationForm(forms.ModelForm):
@@ -93,15 +121,36 @@ class ProjectCreationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProjectCreationForm, self).__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs['class'] = 'form-control'
-        self.fields['name'].widget.attrs['placeholder'] = 'Project Name'
-        self.fields['status'].widget.attrs['class'] = 'form-control'
-        self.fields['status'].widget.attrs['placeholder'] = 'Status'
-        self.fields['dead_line'].widget.attrs['class'] = 'form-control'
-        self.fields['dead_line'].widget = forms.DateInput(attrs={'type': 'date', 'placeholder': 'Dead Line, type a date'})
-        
-        self.fields['complete_per'].widget.attrs['class'] = 'form-control'
-        self.fields['complete_per'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Complete %','min': 0, 'max': 100})
-        self.fields['description'].widget.attrs['class'] = 'form-control'
-        self.fields['description'].widget.attrs['placeholder'] = 'Type here the project description...'
-        self.fields['assign'].widget.attrs['class'] = 'form-control'
+       
+        self.fields['name'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Project Name'
+        })
+
+        self.fields['status'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Status'
+        })
+
+        self.fields['dead_line'].widget = forms.DateInput(attrs={
+            'class': 'form-control',
+            'type': 'date',
+            'placeholder': 'Deadline, type a date'
+        })
+
+        self.fields['complete_per'].widget = forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Complete %',
+            'min': 0,
+            'max': 100
+        })
+
+        self.fields['description'].widget = forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Type here the project description...'
+        })
+
+        self.fields['assign'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Assign'
+        })

@@ -8,7 +8,11 @@ status = (
     ('2', 'Working'),
     ('3', 'Done'),
 )
-
+taskStatus = (
+    ('1', 'Not Started'),
+    ('2', 'In Progress'),
+    ('3', 'Completed'),
+)
 due = (
     ('1', 'On Due'),
     ('2', 'Overdue'),
@@ -38,8 +42,11 @@ class Task(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     assign = models.ManyToManyField(User)
     task_name = models.CharField(max_length=80)
-    status = models.CharField(max_length=7, choices=status, default=1)
-    due = models.CharField(max_length=7, choices=due, default=1)
+    status = models.CharField(max_length=7, choices=taskStatus, default=1)
+    start = models.DateField()
+    end = models.DateField()
+    challenges = models.CharField(max_length=80, default=None, null=True, blank=True)
+    progress_update = models.CharField(max_length=80, default=None, null=True, blank=True)
 
     class Meta:
         ordering = ['project', 'task_name']
