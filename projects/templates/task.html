@@ -1,0 +1,59 @@
+{% extends "core/base.html" %} 
+{% block title %}Employee Page - Dashboard {% endblock %} {% load static %}
+ {% block content %}
+<div class="container-lg" style="max-width: 700px">
+    <div class="card shadow mx-5 my-3">
+        <div class="card-header">
+          <h6 class="m-0 font-weight-bold text-primary">Task Full Details</h6>
+        </div>
+        <div class="card-body">
+          <form >
+          <p>
+        <label for="id_task_name">Task name:</label>
+        <input type="text" name="task_name" value="{{ task }}" class="form-control" readonly="" required="" id="id_task_name">
+      </p>
+      <p>
+        <label for="id_status">Status:</label>
+        <select name="status" readonly="" class="form-control" placeholder="Status" id="id_status">
+          {% if task.status == '1' %}
+          <option value="1">Stuck</option>
+          {% elif task.status == '2' %}
+          <option value="2" selected="">Working</option>
+          {% else %}
+          <option value="3">Done</option>
+          {% endif %}
+    </select>
+      </p>
+      <p>
+        <label for="id_start">Start Date:</label>
+        <input type="text" name="start" value="{{ task.start }}" class="form-control" readonly="" required="" id="start">
+      </p>
+      <p>
+        <label for="id_end">End Date:</label>
+        <input type="text" name="end" value="{{ task.end }}" class="form-control" readonly="" required="" id="end">
+      </p>
+      <p>
+        <label for="id_challenges">Challenges:</label>
+        <textarea name="challenges" cols="40" rows="10" class="form-control"readonly="" placeholder="Type here the challenges..." required="" id="id_challenges">{{ task.challenges }}</textarea>
+      </p>
+      <p>
+        <label for="id_progress_update">Progress update:</label>
+        <textarea name="progress_update" cols="40" rows="10" class="form-control"readonly="" placeholder="Type here the progress_update..." required="" id="id_progress_update">{{ task.progress_update }}</textarea>
+      </p>
+    
+            <br>
+            <a onclick="goBack()" class="btn btn-dark">Go Back</a>
+            <a href="{% url 'projects:updateTask' task.id %}" class="btn btn-secondary">Update</a>
+          </form>
+        </div>
+      </div>
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script>
+    function goBack() {
+        window.history.back();
+    }
+    </script>
+{% endblock %}

@@ -12,10 +12,18 @@
 
         <br />
         <input type="hidden" name="next" value="{{ return_url }}">
+        <a onclick="goBack()" class="btn btn-dark">Go Back</a>
         <button type="submit" class="btn btn-secondary">Update Task</button>
       </form>
     </div>
   </div>
 </div>
 
+{% endblock %}
+{% block extra_js %}
+<script>
+    function goBack() {
+        window.history.back();
+    }
+    </script>
 {% endblock %}

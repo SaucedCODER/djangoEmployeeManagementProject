@@ -19,7 +19,6 @@ due = (
 
 class TaskCreationForm(forms.ModelForm):
     task_name = forms.CharField(max_length=80)
-    status = forms.ChoiceField(choices=statuses)
     start = forms.DateField()
     end = forms.DateField()
     challenges = forms.CharField(max_length=80)
@@ -27,12 +26,12 @@ class TaskCreationForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = ['task_name', 'status', 'start', 'end', 'challenges','progress_update']
+        exclude = ('assign',)
 
 
     def save(self, commit=True):
         task = super(TaskCreationForm, self).save(commit=False)
-        task.project = self.cleaned_data['project']
         task.task_name = self.cleaned_data['task_name']
         task.status = self.cleaned_data['status']
         task.start = self.cleaned_data['start']
@@ -40,9 +39,7 @@ class TaskCreationForm(forms.ModelForm):
         task.challenges = self.cleaned_data['challenges']
         task.progress_update = self.cleaned_data['progress_update']
         task.save()
-        assigns = self.cleaned_data['assign']
-        for assign in assigns:
-            task.assign.add((assign))
+   
         if commit:
             task.save()
 
@@ -50,31 +47,34 @@ class TaskCreationForm(forms.ModelForm):
 
 
     def __init__(self, *args, **kwargs):
-       def __init__(self, *args, **kwargs):
         super(TaskCreationForm, self).__init__(*args, **kwargs)
    
         self.fields['task_name'] = forms.CharField(
-            max_length=80,
-            widget=forms.TextInput(attrs={'class': 'form-control'})
+            widget=forms.TextInput(attrs={'class': 'form-control','readonly': True})
         )
         self.fields['status'] = forms.ChoiceField(
             choices=statuses,
-            widget=forms.Select(attrs={'class': 'form-select'})
+            widget=forms.Select(attrs={
+            'class': 'form-control',
+            'placeholder': 'Status'
+            
+        })
         )
         self.fields['start'] = forms.DateField(
-            widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date','placeholder':'Start, type a date'})
+            widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date','placeholder':'Start, type a date','readonly': True})
         )
         self.fields['end'] = forms.DateField(
-            widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date','placeholder':'End, type a date'})
+            widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date','placeholder':'End, type a date','readonly': True
+            })
         )
-        self.fields['challenges'] = forms.Textarea(
-            max_length=80,
-            widget=forms.Textarea(attrs={'class': 'form-control'})
-        )
-        self.fields['progress_update'] = forms.Textarea(
-            max_length=80,
-            widget=forms.Textarea(attrs={'class': 'form-control'})
-        )
+        self.fields['challenges'].widget = forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Type here the challenges...'
+        })
+        self.fields['progress_update'].widget = forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Type here the progress_update...'
+        })
 
 
 

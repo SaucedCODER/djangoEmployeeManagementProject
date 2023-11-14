@@ -39,7 +39,7 @@ def updateProject(request, pk):
     if request.user.is_authenticated:
         project = Project.objects.get(id=pk)
         form = ProjectCreationForm(request.POST or None, instance=project)
-        
+        print(project)
         if form.is_valid():        
             form.save()
             next = request.POST.get('next', '/')
@@ -48,20 +48,29 @@ def updateProject(request, pk):
             return HttpResponseRedirect(next)
         else:
             return_url = request.GET.get('return_url', '/')
-            return render(request, 'updateproject.html', {'form':form,'return_url':return_url})
+            return render(request, 'updateproject.html', {'form':form,'return_url':return_url,'pk':pk})
     else:
         messages.success(request, "You Must Be Logged In...")
         return redirect('core:login')
     
+def viewTask(request, pk):
+    if request.user.is_authenticated:
+        print(pk)
+        # Look Up tasks and project information
+        task = Task.objects.get(id = pk)
+        return render(request, 'task.html', {'task':task})
+    else:
+        messages.success(request, "You Must Be Logged In To View That Page...")
+        return redirect('core:login')
+       
 def updateTask(request, pk):
     if request.user.is_authenticated:
         task = Task.objects.get(id=pk)
-        form = TaskCreationForm(request.POST or None, instance=task)
         
+        form = TaskCreationForm(request.POST or None, instance=task)
         if form.is_valid():        
             form.save()
             next = request.POST.get('next', '/')
-            print(next)
             messages.success(request, "Task Has Been Updated!")
             return HttpResponseRedirect(next)
         else:
@@ -70,7 +79,7 @@ def updateTask(request, pk):
     else:
         messages.success(request, "You Must Be Logged In...")
         return redirect('core:login')
-    
+
     # def update_record(request, pk):
 	# if request.user.is_authenticated:
 	# 	current_record = Record.objects.get(id=pk)
