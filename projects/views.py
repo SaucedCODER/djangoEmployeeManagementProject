@@ -7,20 +7,21 @@ from projects.forms import TaskCreationForm
 from projects.forms import ProjectCreationForm
 from django.contrib import messages
 from datetime import datetime
+from django.contrib.auth.models import User
 
 
 # Create your views here.
 def projects(request):
-    projects = Project.objects.all()
+    projects = Project.objects.filter(assign = request.user.id)
     avg_projects = Project.objects.all().aggregate(Avg('complete_per'))['complete_per__avg']
     tasks = Task.objects.all()
-    overdue_tasks = tasks.filter(due='2')
+    # overdue_tasks = tasks.filter(end='2')
     current_date = datetime.now()
     context = {
         'avg_projects' : avg_projects,
         'projects' : projects,
         'tasks' : tasks,
-        'overdue_tasks' : overdue_tasks,
+        # 'overdue_tasks' : overdue_tasks,
         'current_date': current_date
         
     }

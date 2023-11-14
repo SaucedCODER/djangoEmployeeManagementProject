@@ -4,7 +4,7 @@ from .models import Task
 from .models import Project
 from django.contrib.auth.models import User
 
-status = (
+statuses = (
     ('1', 'Stuck'),
     ('2', 'Working'),
     ('3', 'Done'),
@@ -21,7 +21,7 @@ class TaskCreationForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all())
     assign = forms.ModelMultipleChoiceField(queryset=User.objects.all())
     task_name = forms.CharField(max_length=80)
-    status = forms.ChoiceField(choices=status)
+    status = forms.ChoiceField(choices=statuses)
     start = forms.DateField()
     end = forms.DateField()
     challenges = forms.CharField(max_length=80)
@@ -69,7 +69,7 @@ class TaskCreationForm(forms.ModelForm):
             widget=forms.TextInput(attrs={'class': 'form-control'})
         )
         self.fields['status'] = forms.ChoiceField(
-            choices=status,
+            choices=statuses,
             widget=forms.Select(attrs={'class': 'form-select'})
         )
         self.fields['start'] = forms.DateField(
@@ -90,15 +90,14 @@ class TaskCreationForm(forms.ModelForm):
 
 class ProjectCreationForm(forms.ModelForm):
     name = forms.CharField(max_length=80)
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.all())
-    status = forms.ChoiceField(choices=status)
     dead_line = forms.DateField()
     complete_per = forms.FloatField(min_value=0, max_value=100)
     description = forms.CharField(widget=forms.Textarea)
-
+ 
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = ['name', 'status', 'dead_line', 'complete_per', 'description']
+        exclude = ('assign',)
 
 
     def save(self, commit=True):
@@ -109,9 +108,6 @@ class ProjectCreationForm(forms.ModelForm):
         Project.complete_per = self.cleaned_data['complete_per']
         Project.description = self.cleaned_data['description']
         Project.save()
-        assigns = self.cleaned_data['assign']
-        for assign in assigns:
-            Project.assign.add((assign))
 
         if commit:
             Project.save()
@@ -125,32 +121,36 @@ class ProjectCreationForm(forms.ModelForm):
         self.fields['name'].widget = forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Project Name'
+             ,'readonly': True
         })
 
-        self.fields['status'].widget = forms.TextInput(attrs={
+        self.fields['status'] = forms.ChoiceField(
+            choices=statuses,
+            widget=forms.Select(attrs={
             'class': 'form-control',
             'placeholder': 'Status'
         })
+        )
 
         self.fields['dead_line'].widget = forms.DateInput(attrs={
             'class': 'form-control',
             'type': 'date',
             'placeholder': 'Deadline, type a date'
+             ,'readonly': True
         })
 
         self.fields['complete_per'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Complete %',
             'min': 0,
-            'max': 100
+            'max': 100,
+            'readonly': True
         })
 
         self.fields['description'].widget = forms.Textarea(attrs={
             'class': 'form-control',
             'placeholder': 'Type here the project description...'
+            ,'readonly': True
         })
-
-        self.fields['assign'].widget = forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Assign'
-        })
+        
+     
