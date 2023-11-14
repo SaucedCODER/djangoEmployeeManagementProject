@@ -18,8 +18,6 @@ due = (
 
 
 class TaskCreationForm(forms.ModelForm):
-    project = forms.ModelChoiceField(queryset=Project.objects.all())
-    assign = forms.ModelMultipleChoiceField(queryset=User.objects.all())
     task_name = forms.CharField(max_length=80)
     status = forms.ChoiceField(choices=statuses)
     start = forms.DateField()
@@ -54,16 +52,7 @@ class TaskCreationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
        def __init__(self, *args, **kwargs):
         super(TaskCreationForm, self).__init__(*args, **kwargs)
-
-        self.fields['project'] = forms.ModelChoiceField(
-            queryset=Project.objects.all(),
-            widget=forms.Select(attrs={'class': 'form-select'})
-        )
-
-        self.fields['assign'] = forms.ModelMultipleChoiceField(
-            queryset=User.objects.all(),
-            widget=forms.SelectMultiple(attrs={'class': 'form-select'})
-        )
+   
         self.fields['task_name'] = forms.CharField(
             max_length=80,
             widget=forms.TextInput(attrs={'class': 'form-control'})
@@ -73,19 +62,20 @@ class TaskCreationForm(forms.ModelForm):
             widget=forms.Select(attrs={'class': 'form-select'})
         )
         self.fields['start'] = forms.DateField(
-            widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
+            widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date','placeholder':'Start, type a date'})
         )
         self.fields['end'] = forms.DateField(
-            widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
+            widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date','placeholder':'End, type a date'})
         )
-        self.fields['challenges'] = forms.CharField(
+        self.fields['challenges'] = forms.Textarea(
             max_length=80,
-            widget=forms.TextInput(attrs={'class': 'form-control'})
+            widget=forms.Textarea(attrs={'class': 'form-control'})
         )
-        self.fields['progress_update'] = forms.CharField(
+        self.fields['progress_update'] = forms.Textarea(
             max_length=80,
-            widget=forms.TextInput(attrs={'class': 'form-control'})
+            widget=forms.Textarea(attrs={'class': 'form-control'})
         )
+
 
 
 class ProjectCreationForm(forms.ModelForm):

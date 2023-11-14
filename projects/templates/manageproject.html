@@ -72,7 +72,7 @@
     <div class="card shadow mx-5 mt-4">
         <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Tasks</h6>
+            <h6 class="m-0 font-weight-bold text-primary">List of Tasks</h6>
           
         </div>
         <!-- Card Body -->
@@ -82,42 +82,52 @@
                     <tr>
                         <th>Name</th>
                         <th>Status</th>
-                        <th>Deadline</th>
-                        <th>Progress</th>
+                        <th>Remaining</th>
+                        <th>Challenges</th>
+                        <th>Progress Update</th>
                         <th>Actions</th>
-
-                    
-
                     </tr>
                 </thead>
                 <tbody>
                   
-                    <tr>
-                        <td>{{ project }}</td>
+                   
+                        {% for task in tasks %}
+                        <tr>
+                        <td>
+                            {{ task }}
+                        </td>
                         <td> 
-                        {% if project.status == '1' %}
-                            <span class="text-danger">Stuck</span>
-                        {% elif project.status == '2' %}
-                            <span class="text-info">Working</span>
-                        {% else %}
-                            <span class="text-success">Done!</span>
-                        {% endif %}
+                            {% if task.status == '1' %}
+                                <span class="text-danger">Stuck</span>
+                            {% elif task.status == '2' %}
+                                <span class="text-info">Working</span>
+                            {% else %}
+                                <span class="text-success">Done!</span>
+                            {% endif %}
+                            </td>
+                        <td>
+                            {{ task.remaining_days }} days
                         </td>
                         <td>
-                            {{ project.dead_line }}
-                       </td>
-                        <td>{{ project.complete_per }}%</td>
+                            {{ task.challenges|truncatechars:20 }}
+                        </td>
+                        <td>
+                            {{ task.progress_update|truncatechars:20 }}
+                        </td>
                         <td><div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-158px, 18px, 0px);">
-                                <a class="dropdown-item d-flex justify-content-around align-items-center" href="{% url 'projects:projects' projects.id%"><span>View</span> <i class="fa-solid fa-eye "></i></a>
+                                <a class="dropdown-item d-flex justify-content-around align-items-center" href="{% url 'task:projects' task.id%"><span>View</span> <i class="fa-solid fa-eye "></i></a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item d-flex justify-content-around align-items-center" href="{% url 'projects:update' projects.id%"><span>Update</span> <i class="fa-solid fa-pen-to-square"></i></a>
+                                <a class="dropdown-item d-flex justify-content-around align-items-center" href="{% url 'task:update' task.id%"><span>Update</span> <i class="fa-solid fa-pen-to-square"></i></a>
                             </div>
                         </div></td>
                     </tr>
+
+                        {% endfor %}
+                       
                   
                 </tbody>
             </table>

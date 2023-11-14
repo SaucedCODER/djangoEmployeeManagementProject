@@ -14,72 +14,27 @@ from django.contrib.auth.models import User
 def projects(request):
     projects = Project.objects.filter(assign = request.user.id)
     avg_projects = Project.objects.all().aggregate(Avg('complete_per'))['complete_per__avg']
-    tasks = Task.objects.all()
     # overdue_tasks = tasks.filter(end='2')
     current_date = datetime.now()
     context = {
         'avg_projects' : avg_projects,
         'projects' : projects,
-        'tasks' : tasks,
         # 'overdue_tasks' : overdue_tasks,
         'current_date': current_date
         
     }
     return render(request, 'projects.html', context)
 
-def newTask(request):
-    if request.method == 'POST':
-        form = TaskCreationForm(request.POST)
-        context = {'form': form}
-        if form.is_valid():
-            form.save()
-           
-            context = {
-                'form': form,
-            }
-            messages.success(request, "Congratulations, your Task was created!")
-            return render(request, 'core/home.html', context)
-        else:
-            return render(request, 'createtask.html', context)
-    else:
-        form = TaskCreationForm()
-        context = {
-            'form': form,
-        }
-        return render(request,'createtask.html', context)
-
-def newProject(request):
-    if request.method == 'POST':
-        form = ProjectCreationForm(request.POST)
-        context = {'form': form}
-        if form.is_valid():
-            form.save()
-           
-            form = ProjectCreationForm()
-            context = {
-                'form': form,
-            }
-            messages.success(request, "Congratulations, your project was created!")
-            return render(request, 'createproject.html', context)
-        else:
-            return render(request, 'createproject.html', context)
-    else:
-        form = ProjectCreationForm()
-        context = {
-            'form': form,
-        }
-        return render(request,'createproject.html', context)
-    
 def viewProject(request, pk):
     if request.user.is_authenticated:
-        # Look Up Records
+        # Look Up tasks and project information
+        tasks = Task.objects.filter(project_id = pk)
         project = Project.objects.get(id=pk)
-        return render(request, 'manageproject.html', {'project':project})
+        return render(request, 'manageproject.html', {'project':project,'tasks':tasks})
     else:
         messages.success(request, "You Must Be Logged In To View That Page...")
         return redirect('core:login')
-def deleteProject(request, pk):
-    pass
+
 def updateProject(request, pk):
     if request.user.is_authenticated:
         project = Project.objects.get(id=pk)
@@ -94,6 +49,24 @@ def updateProject(request, pk):
         else:
             return_url = request.GET.get('return_url', '/')
             return render(request, 'updateproject.html', {'form':form,'return_url':return_url})
+    else:
+        messages.success(request, "You Must Be Logged In...")
+        return redirect('core:login')
+    
+def updateTask(request, pk):
+    if request.user.is_authenticated:
+        task = Task.objects.get(id=pk)
+        form = TaskCreationForm(request.POST or None, instance=task)
+        
+        if form.is_valid():        
+            form.save()
+            next = request.POST.get('next', '/')
+            print(next)
+            messages.success(request, "Task Has Been Updated!")
+            return HttpResponseRedirect(next)
+        else:
+            return_url = request.GET.get('return_url', '/')
+            return render(request, 'updatetask.html', {'form':form,'return_url':return_url})
     else:
         messages.success(request, "You Must Be Logged In...")
         return redirect('core:login')

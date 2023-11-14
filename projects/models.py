@@ -49,6 +49,12 @@ class Task(models.Model):
     challenges = models.CharField(max_length=80, default=None, null=True, blank=True)
     progress_update = models.CharField(max_length=80, default=None, null=True, blank=True)
 
+    def remaining_days(self):
+        from datetime import date
+
+        today = date.today()
+        remaining_days = (self.end - today).days
+        return remaining_days
     class Meta:
         ordering = ['project', 'task_name']
 
