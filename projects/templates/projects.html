@@ -52,7 +52,7 @@
                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-158px, 18px, 0px);">
-                                <a class="dropdown-item d-flex justify-content-around align-items-center" href="{% url 'projects:view' project.id %}"><span>Manage Project</span> <i class="fa-solid fa-eye "></i></a>
+                                <a class="dropdown-item d-flex justify-content-around align-items-center" href="{% url 'projects:view' project.id %}"><span>Manage Project</span> </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item d-flex justify-content-around align-items-center" href="{% url 'projects:update' project.id %}?return_url={{ request.path }} "><span>Update Status</span> <i class="fa-solid fa-pen-to-square"></i></a>
                             </div>

@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from projects.models import Task, Project
+from employees.models import Attendance
+
 from django.contrib.auth.models import User
 # Create your views here.
 
@@ -14,13 +16,17 @@ def home(request):
         total_tasks = Task.objects.count()
         overdue_tasks = Task.overdue_tasks()
         completed_tasks = Task.completed_tasks()
+        completed_projects = Project.completed_projects()
+        present_days = Attendance.present_days_count(request.user)
         # Get the total number of projects
         total_projects = Project.objects.count()
         
         context = { 'total_projects': total_projects, 
                    'total_tasks': total_tasks,
                    'overdue_tasks': overdue_tasks,
-                   'completed_tasks': completed_tasks
+                   'completed_tasks': completed_tasks,
+                   'completed_projects': completed_projects,
+                    'present_days' : present_days
                    }
         return render(request,'core/home.html',context)
     return render(request,'core/login.html',{})

@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'core',
     'projects',
     'employees',
+    'calculator',
+
 
 ]
 

@@ -32,7 +32,9 @@ class Project(models.Model):
 
     add_date = models.DateField(auto_now_add=True)
     upd_date = models.DateField(auto_now_add=False, auto_now=True)
-
+    @classmethod
+    def completed_projects(cls):
+        return cls.objects.filter(status='3').count() or 0 
     class Meta:
         ordering = ['name']
 

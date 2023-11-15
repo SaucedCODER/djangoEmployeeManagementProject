@@ -11,6 +11,11 @@ class Attendance(models.Model):
     date = models.DateField()
     status = models.CharField(max_length=10, choices=ATTENDANCE_CHOICES, default='not_set')
     is_open = models.BooleanField(default=False)
+
+    @classmethod
+    def present_days_count(cls, user):
+        return cls.objects.filter(user=user, status='present').count() or 0
+    
     @classmethod
     def mark_attendance(cls, user, date):
         attendance, created = cls.objects.get_or_create(

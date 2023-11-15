@@ -21,7 +21,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('projects/', include('projects.urls', namespace='projects')),
     path('employees/', include('employees.urls', namespace='employees')),
-
+    path('calculator/', include('calculator.urls', namespace='calculator')),
     path('', include('core.urls', namespace='core')),
 
 ]
+
+
+
