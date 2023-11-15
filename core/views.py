@@ -4,12 +4,25 @@ from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
 # from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-
+from projects.models import Task, Project
+from django.contrib.auth.models import User
 # Create your views here.
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request,'core/home.html',{})
+        # Get the total number of tasks
+        total_tasks = Task.objects.count()
+        overdue_tasks = Task.overdue_tasks()
+        completed_tasks = Task.completed_tasks()
+        # Get the total number of projects
+        total_projects = Project.objects.count()
+        
+        context = { 'total_projects': total_projects, 
+                   'total_tasks': total_tasks,
+                   'overdue_tasks': overdue_tasks,
+                   'completed_tasks': completed_tasks
+                   }
+        return render(request,'core/home.html',context)
     return render(request,'core/login.html',{})
 
 def login_user(request):

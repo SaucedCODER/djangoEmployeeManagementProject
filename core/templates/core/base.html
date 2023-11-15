@@ -87,7 +87,7 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="{% url 'employees:open_attendance' %}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Attendance</span></a>
             </li>
@@ -327,8 +327,12 @@
                 {% block footer %}{% endblock %}
 
             </div>
-            <!-- End of Content Wrapper -->
+           
         </div>
+         <!-- End of Content Wrapper -->
+         {% block extra_content %}
+            
+         {% endblock %}
         <!-- End of Page Wrapper -->
 
         <!-- Scroll to Top Button-->

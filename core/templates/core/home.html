@@ -1,16 +1,63 @@
 {% extends "core/base.html" %} 
 {% block title %}Employee Page - Dashboard{% endblock %}
 {% load static %}
-{% block extra_js %}
- <!-- Page level plugins -->
- <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
- <!-- Page level custom scripts -->
- <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
- <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+{% block extra_css %}
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css"
+/>
+<!-- Style CSS -->
+<link rel="stylesheet" href="{% static 'css/Historystyle.css' %}" />
 {% endblock %}
 
-<!-- {% block extra_css %}
-{% endblock %} -->
+{% block extra_js %}
+ <!-- Page level plugins -->
+ <!-- <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script> -->
+ <!-- Page level custom scripts -->
+ <!-- <script src="{% static 'js/demo/chart-area-demo.js' %}"></script> -->
+ <!-- <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script> -->
+ 
+    <!-- jQuery JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Slick Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    <!-- Bootstrap 5 JavaScript Bundle with Popper -->
+    <script>
+        $.js = function (el) {
+          return $("[data-js=" + el + "]");
+        };
+  
+        function carousel() {
+          $.js("timeline-carousel").slick({
+            infinite: false,
+            arrows: true,
+            arrows: true,
+            prevArrow:
+              '<div class="slick-prev"> <div class="btn mr-3 btn-warning d-flex justify-content-center align-items-center"> <div>Previous</div><svg class="ml-1" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve"> <path d="M10.1,19.1l1.5-1.5L7,13h14.1v-2H7l4.6-4.6l-1.5-1.5L3,12L10.1,19.1z"/> </svg></div></div>',
+            nextArrow:
+              '<div class="slick-next"> <div class="btn btn-warning d-flex justify-content-center align-items-center"> <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> <path d="M 14 4.9296875 L 12.5 6.4296875 L 17.070312 11 L 3 11 L 3 13 L 17.070312 13 L 12.5 17.570312 L 14 19.070312 L 21.070312 12 L 14 4.9296875 z"/> </svg> <div>Next</div></div></div>',
+  
+            dots: true,
+            autoplay: false,
+            speed: 1100,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            responsive: [
+              {
+                breakpoint: 800,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                },
+              },
+            ],
+          });
+        }
+  
+        carousel();
+      </script>
+{% endblock %}
+
 {% block footer %}
 <!-- Footer -->
 <footer class="sticky-footer bg-white">
@@ -25,7 +72,7 @@
 
 {% block content %}
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid" >
             
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -44,8 +91,8 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Earnings (Monthly)</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                        Assigned Projects</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_projects }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -55,24 +102,7 @@
                     </div>
                 </div>
 
-                <!-- Earnings (Monthly) Card Example -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-success shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                        Earnings (Annual)</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+               
                 <!-- Earnings (Monthly) Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-info shadow h-100 py-2">
@@ -83,12 +113,12 @@
                                     </div>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
-                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ total_tasks }}</div>
                                         </div>
                                         <div class="col">
                                             <div class="progress progress-sm mr-2">
                                                 <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                    style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                                                     aria-valuemax="100"></div>
                                             </div>
                                         </div>
@@ -109,8 +139,8 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Pending Requests</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        OverDue Tasks</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ overdue_tasks }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -120,132 +150,475 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Content Row -->
-
-            <div class="row">
-
-                <!-- Area Chart -->
-                <div class="col-xl-8 col-lg-7">
-                    <div class="card shadow mb-4">
-                        <!-- Card Header - Dropdown -->
-                        <div
-                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">Dropdown Header:</div>
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card Body -->
+            
+                <!-- Pending Requests Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
                         <div class="card-body">
-                            <div class="chart-area">
-                                <canvas id="myAreaChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pie Chart -->
-                <div class="col-xl-4 col-lg-5">
-                    <div class="card shadow mb-4">
-                        <!-- Card Header - Dropdown -->
-                        <div
-                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">Dropdown Header:</div>
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        Completed Tasks</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ completed_tasks }}</div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Card Body -->
-                        <div class="card-body">
-                            <div class="chart-pie pt-4 pb-2">
-                                <canvas id="myPieChart"></canvas>
-                            </div>
-                            <div class="mt-4 text-center small">
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-primary"></i> Direct
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-success"></i> Social
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-info"></i> Referral
-                                </span>
+                                <div class="col-auto">
+                                    <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+         
 
-            <!-- Content Row -->
-            <div class="row">
-
-                <!-- Content Column -->
-                <div class="col-lg-6 mb-4">
-
-                    <!-- Project Card Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="small font-weight-bold">Server Migration <span
-                                    class="float-right">20%</span></h4>
-                            <div class="progress mb-4">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                    aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h4 class="small font-weight-bold">Sales Tracking <span
-                                    class="float-right">40%</span></h4>
-                            <div class="progress mb-4">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h4 class="small font-weight-bold">Customer Database <span
-                                    class="float-right">60%</span></h4>
-                            <div class="progress mb-4">
-                                <div class="progress-bar" role="progressbar" style="width: 60%"
-                                    aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h4 class="small font-weight-bold">Payout Details <span
-                                    class="float-right">80%</span></h4>
-                            <div class="progress mb-4">
-                                <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h4 class="small font-weight-bold">Account Setup <span
-                                    class="float-right">Complete!</span></h4>
-                            <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <!-- Start DEMO HTML (Use the following code into your project)-->
+<main>
+      <section class="timeline-carousel">
+        <div class="container">
+          <div class="row">
+            <div class="col-8 offset-2 text-center mb-5">
+              <h2>History of Civil Engineering</h2>
+              <p class="lead text-muted">
+                Explore the evolution of civil engineering through significant
+                milestones and achievements. The timeline showcases key events
+                and developments that have shaped the field over the centuries.
+              </p>
             </div>
+          </div>
         </div>
+        <div
+          class="timeline-carousel__item-wrapper pt-5"
+          data-js="timeline-carousel"
+        >
+          <!-- items -->
+          <div class="timeline-carousel__item-inner">
+            <span class="year">4000-2000 BC</span>
+            <p>
+              The earliest practices of Civil engineering in Ancient Egypt and
+              Mesopotamia
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">2700-2500 BC</span>
+            <p>Construction of Pyramids in Egypt</p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">2550 BC</span>
+            <p>
+              Imhotep, the first documented engineer, built a famous stepped
+              pyramid for King Djoser in Saqqara Necropolis
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">447-438 BC</span>
+            <p>Parthenon by Iktinos in Ancient Greece</p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">312 BC</span>
+            <p>Appian Way constructed by Roman Engineers</p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">220 BC</span>
+            <p>
+              Construction of the Great Wall of China by General Meng T’ien
+              under orders from Ch’in Emperor Shih Huang Ti
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1450</span>
+            <p>Machu Picchu, Peru, built at the height of the Inca Empire</p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1747</span>
+            <p>
+              The first engineering school, The National School of Bridges and
+              Highways, France, was opened
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1771</span>
+            <p>
+              The first self-proclaimed civil engineer was John Smeaton and some
+              of his colleagues formed the Smeatonian Society of Civil Engineers
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1818</span>
+            <p>
+              World’s first engineering society, the Institution of Civil
+              Engineers was founded in London
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1820</span>
+            <p>
+              Eminent engineer Thomas Telford became first president of the
+              institution
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1828</span>
+            <p>The institution received a Royal Charter</p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1835</span>
+            <p>
+              The first degree in Civil Engineering in the United States was
+              awarded by Rensselaer Polytechnic Institute
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1905</span>
+            <p>
+              The first such degree to be awarded to a woman was granted by
+              Cornell University to Nora Stanton Blatch
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1907</span>
+            <p>
+              The US government was initiated the development of roadways in the
+              Philippines, it is connecting the towns, cities, and provinces
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1970</span>
+            <p>
+              there were already 591 national and municipal ports plus 200
+              private ports scattered all over the country necessitating the
+              need for long-range planning and rationalization of port
+              development.
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1973</span>
+            <p>
+              the Securities and Exchange Commission (SEC) issued Registration
+              Certificate No.53896 to the PHILIPPINE INSTITUTE OF CIVIL
+              ENGINEERS, INC. (PICE). This was the culmination and fulfilment of
+              a vision to merge two separate organizations of civil engineers in
+              the country, the Philippine Society of Civil Engineers (PSCE) and
+              the Philippine Association of Civil Engineers (PACE)
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1976</span>
+            <p>
+              the National Water Resources Board (NWRB) was created through the
+              National Water Code of the Philippines (Water Code of the
+              Philippines) to coordinate policies concerning water resources.
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1983</span>
+            <p>the construction of Magat Dam</p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">1991</span>
+            <p>
+              Civil Engineering Week declared in the Philippines from November 3
+              to 9, 1991, by President Corazon C. Aquino
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">2016</span>
+            <p>
+              Pietrucha Group, with its local partner Design Science, launches a
+              production plant manufacturing vinyl sheet piling in Mariveles,
+              Bataan
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <div class="timeline-carousel__image">
+              <div
+                class="media-wrapper media-wrapper--overlay"
+                style="
+                  background: url('https://via.placeholder.com/550x320/171717/cccccc?text=zeus')
+                    center center;
+                  background-size: cover;
+                "
+              ></div>
+            </div>
+            <span class="year">2020 to present</span>
+            <p>
+              PICE has more than 91,368 registered civil engineer-members in 105
+              chapters and some 21,177 civil engineering student-members in 210
+              student chapters throughout the country
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+
+          <div class="timeline-carousel__item-inner">
+            <span class="year">21st Century</span>
+            <p>
+              Civil engineers are required to be knowledgeable on computer-aided
+              tools, such as AutoCAD and SketchUp
+            </p>
+
+            <a href="#" class="read-more">Read more</a>
+          </div>
+        </div>
+      </section>
+    </main>
+      <!-- END EDMO HTML (Happy Coding!)-->
+
 {% endblock %}
                    
                   
