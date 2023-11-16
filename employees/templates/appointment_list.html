@@ -1,0 +1,63 @@
+<!-- employees/appointment_list.html -->
+{% extends "core/base.html" %} 
+{% block title %}Employee Page - Dashboard {%endblock %} {% load static %}
+
+{% block content %}
+  <div class="container">
+    <h2 class="mt-4">Your Appointments</h2>
+    <form method="get" action="" class="mb-4 d-flex p-2 align-items-start justify-content-start" style="width: 100vw;">
+      {{ filter_form.as_p }}
+      <button type="submit" class="btn btn-primary ml-2 ">Filter</button>
+      <a href="{% url 'employees:create_appointment' %}" class="btn btn-success ml-5" >Create Appointment</a>
+    </form>
+    <hr>
+    <ul class="list-group">
+      {% for appointment in appointments %}
+        <li class="list-group-item d-flex align-items-start">
+          <span class="text-truncate w-50">{{ appointment.date_time }} - {{ appointment.title }}</span>
+          
+          <span class="
+    {% if appointment.status == 'pending' %}
+        text-warning
+    {% elif appointment.status == 'rejected' %}
+        text-danger
+    {% elif appointment.status == 'approved' %}
+        text-primary
+    {% endif %}
+    outlined-text text-nowrap ml-auto"
+>status: {{ appointment.status }}</span>
+          <a href="{% url 'employees:update_appointment' appointment.id %}" class="btn btn-secondary mr-1 ml-auto" ><i class="fa-solid fa-pen-to-square"></i></a>
+          <a  onclick="confirmDelete('{{ appointment.id }}','{{ appointment.title }}')" class="btn btn-secondary mr-1" >
+            <i class="fa-solid fa-trash-can"></i>
+        </a>
+          <a href="{% url 'employees:view_appointment' appointment.id %}" class="btn btn-secondary mr-1" ><i class="fa-solid fa-eye"></i></a>
+        </li>
+      {% endfor %}
+    </ul>
+    
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Function to trigger SweetAlert2 confirmation
+    function confirmDelete(id, title) {
+      Swal.fire({
+        title: 'Confirmation',
+        text: 'Are you sure you want to delete the appointment titled: "' + title + '"?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it',
+        customClass: {
+          container: 'small-swal-containerz',
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "{% url 'employees:delete_appointment' 0 %}".replace('0', id);
+        }
+      });
+    }
+    </script>
+{% endblock %}

@@ -53,6 +53,11 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+/* sweetalert confirmation modal */
+.small-swal-containerz .swal2-modal{
+  max-width: 400px !important;
+  background-color: white;
+}
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
@@ -2502,7 +2507,9 @@ fieldset:disabled a.btn {
 .show > .btn-info.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(84, 196, 212, 0.5);
 }
-
+.outlined-text{
+  -webkit-text-stroke: .3px #000000; /* Webkit browsers like Chrome and Safari */
+}
 .btn-warning {
   color: #fff;
   background-color: #f6c23e;

@@ -28,11 +28,11 @@ def calculate_load(request):
             maximum_capacity = determine_maximum_load(material, width, length, height)
 
             if isinstance(maximum_capacity, (int, float)):
-                result = f"The maximum load the {material} material can handle is <b>{maximum_capacity} N</b>."
+                result = f"The maximum load the {material} material can handle is {maximum_capacity}N."
             else:
                 result = maximum_capacity
 
-            context = {'result': result}
+            context = {'result': result,'material': material,'width': width,'length': length, 'height': height}
             return render(request, 'calculate_load.html', context)
         else:
             messages.error(request, "You Must Be Logged In...")

@@ -18,7 +18,7 @@
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.css' %}" rel="stylesheet">
     <link href="{% static 'toast/style.css' %}" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
 
     {% block extra_css %}{% endblock %}
 </head>
@@ -55,7 +55,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center"  href="{% url 'core:home' %}">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fa-solid fa-helmet-safety" style="color: #ffffff;"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Employee</div>
             </a>
@@ -88,13 +88,18 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'employees:open_attendance' %}">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Attendance</span></a>
+                    <i class="fa-solid fa-calendar-check fa-fw"></i>
+                    <span>Attendances</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'employees:appointment_list' %}">
+                    <i class="fa-solid fa-calculator fa-fw"></i>
+                    <span>Appointments</span></a>
             </li>
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'calculator:calculate_load' %}">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fa-solid fa-calculator fa-fw"></i>
                     <span>Calculate</span></a>
             </li>
             <!-- Divider -->
@@ -372,7 +377,8 @@
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <!-- Core plugin JavaScript-->
     <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-
+    <!-- sweetalert2 script -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
     <script src="{% static 'toast/script.js' %}"></script>

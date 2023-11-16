@@ -49,9 +49,8 @@ def updateProject(request, pk):
         else:
             return_url = request.GET.get('return_url', '/')
             return render(request, 'updateproject.html', {'form':form,'return_url':return_url,'pk':pk})
-    
     else:
-        messages.success(request, "You Must Be Logged In...")
+        messages.error(request, "You Must Be Logged In...")
         return redirect('core:login')
     
 def viewTask(request, pk):

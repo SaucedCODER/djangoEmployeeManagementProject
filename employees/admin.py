@@ -11,3 +11,20 @@ class AttendanceAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'  # Add date hierarchy for easy navigation
 
 
+# employees/admin.py
+from .models import Appointment
+
+class AppointmentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'date_time', 'status', 'description', 'notes')
+    list_filter = ('user', 'date_time', 'status')
+    search_fields = ('user__username', 'description', 'notes')
+    actions = ['approve_selected', 'reject_selected']
+
+    def approve_selected(self, request, queryset):
+        queryset.update(status='approved')
+
+    def reject_selected(self, request, queryset):
+        queryset.update(status='rejected')
+
+admin.site.register(Appointment, AppointmentAdmin)
+

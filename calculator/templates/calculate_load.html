@@ -12,38 +12,30 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="material">Material:</label>
-                <input type="text" class="form-control" name="material" required>
-                <div class="invalid-feedback">
-                    Please provide a valid material.
-                </div>
+                <input type="text" class="form-control" name="material" value="{{ material }}" placeholder="Enter '🌲 wood' or '🔩 steel' only" required>
             </div>
             <div class="form-group">
                 <label for="width">Width:</label>
-                <input type="number" class="form-control" name="width" required>
-                <div class="invalid-feedback">
-                    Please provide a valid width.
-                </div>
+                <input type="number" class="form-control" name="width"  value="{{ width }}"placeholder="Enter width (meters)" required>
             </div>
             <div class="form-group">
                 <label for="length">Length:</label>
-                <input type="number" class="form-control" name="length" required>
-                <div class="invalid-feedback">
-                    Please provide a valid length.
-                </div>
+                <input type="number" class="form-control" name="length" value="{{ length }}" placeholder="Enter length (meters)" required>
             </div>
             <div class="form-group">
                 <label for="height">Height:</label>
-                <input type="number" class="form-control" name="height" required>
+                <input type="number" class="form-control" name="height" value="{{ height }}" placeholder="Enter height (meters)">
                 <div class="invalid-feedback">
                     Please provide a valid height.
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Calculate</button>
         </form>
-    
-        {% if result %}
-            <p class="mt-3">{{ result }}</p>
-        {% endif %}
+        
+       
+    </div>
+    <div class="card-footer" style="background-color: #1e1e1e;color: #abb2bf; font-family: 'Courier New', monospace;">
+        Output:{% if result %}{{ result }}{% endif %}
     </div>
   </div>
 </div>
