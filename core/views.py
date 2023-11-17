@@ -11,15 +11,16 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 def home(request):
+    user = request.user
     if request.user.is_authenticated:
         # Get the total number of tasks
-        total_tasks = Task.objects.count()
-        overdue_tasks = Task.overdue_tasks()
-        completed_tasks = Task.completed_tasks()
-        completed_projects = Project.completed_projects()
-        present_days = Attendance.present_days_count(request.user)
+        total_tasks = Task.user_tasks(user)
+        overdue_tasks = Task.overdue_tasks(user)
+        completed_tasks = Task.completed_tasks(user)
+        completed_projects = Project.completed_projects(user)
+        present_days = Attendance.present_days_count(user)
         # Get the total number of projects
-        total_projects = Project.objects.count()
+        total_projects = Project.assigned_projects(user)
         
         context = { 'total_projects': total_projects, 
                    'total_tasks': total_tasks,

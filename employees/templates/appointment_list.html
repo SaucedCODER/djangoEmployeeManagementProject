@@ -16,7 +16,7 @@
         <li class="list-group-item d-flex align-items-start">
           <span class="text-truncate w-50">{{ appointment.date_time }} - {{ appointment.title }}</span>
           
-          <span class="
+          <span class="text-start
     {% if appointment.status == 'pending' %}
         text-warning
     {% elif appointment.status == 'rejected' %}
@@ -24,13 +24,19 @@
     {% elif appointment.status == 'approved' %}
         text-primary
     {% endif %}
-    outlined-text text-nowrap ml-auto"
+    outlined-text text-nowrap mx-2"
 >status: {{ appointment.status }}</span>
-          <a href="{% url 'employees:update_appointment' appointment.id %}" class="btn btn-secondary mr-1 ml-auto" ><i class="fa-solid fa-pen-to-square"></i></a>
-          <a  onclick="confirmDelete('{{ appointment.id }}','{{ appointment.title }}')" class="btn btn-secondary mr-1" >
+  <a href="{% url 'employees:update_appointment' appointment.id %}" 
+          class="btn btn-secondary mr-1 ml-auto {% if appointment.status == 'approved' %}
+          disabled
+        {% endif %}" >
+          <i class="fa-solid fa-pen-to-square"></i>
+          </a>
+          
+          <a  onclick="confirmDelete('{{ appointment.id }}','{{ appointment.title }}')" class="btn btn-danger mr-1" >
             <i class="fa-solid fa-trash-can"></i>
         </a>
-          <a href="{% url 'employees:view_appointment' appointment.id %}" class="btn btn-secondary mr-1" ><i class="fa-solid fa-eye"></i></a>
+          <a href="{% url 'employees:view_appointment' appointment.id %}" class="btn btn-primary mr-1" ><i class="fa-solid fa-eye"></i></a>
         </li>
       {% endfor %}
     </ul>

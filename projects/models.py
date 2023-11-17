@@ -33,8 +33,11 @@ class Project(models.Model):
     add_date = models.DateField(auto_now_add=True)
     upd_date = models.DateField(auto_now_add=False, auto_now=True)
     @classmethod
-    def completed_projects(cls):
-        return cls.objects.filter(status='3').count() or 0 
+    def completed_projects(cls,user):
+        return cls.objects.filter(assign=user,status='3').count() or 0 
+    @classmethod
+    def assigned_projects(cls,user):
+        return cls.objects.filter(assign=user).count() or 0 
     class Meta:
         ordering = ['name']
 
@@ -60,13 +63,17 @@ class Task(models.Model):
         return remaining_days
     
     @classmethod
-    def overdue_tasks(cls):
+    def overdue_tasks(cls,user):
         today = date.today()
-        return cls.objects.filter(end__lt=today, status__in=['1', '2']).count() or 0 
+        return cls.objects.filter(assign=user,end__lt=today, status__in=['1', '2']).count() or 0 
 
     @classmethod
-    def completed_tasks(cls):
-        return cls.objects.filter(status='3').count() or 0 
+    def completed_tasks(cls,user):
+        return cls.objects.filter(assign=user,status='3').count() or 0 
+    
+    @classmethod
+    def user_tasks(cls,user):
+        return cls.objects.filter(assign=user,status__in=['1','2','3']).all().count() or 0 
     class Meta:
         ordering = ['project', 'task_name']
 

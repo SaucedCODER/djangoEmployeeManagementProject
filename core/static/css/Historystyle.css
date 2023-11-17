@@ -23,6 +23,7 @@
 }
 .timeline-carousel:after {
   left: 0;
+  background-color: #f8f9fc !important;
 }
 .timeline-carousel:before {
   right: 0;

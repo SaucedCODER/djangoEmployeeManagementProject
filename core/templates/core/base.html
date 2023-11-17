@@ -93,7 +93,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'employees:appointment_list' %}">
-                    <i class="fa-solid fa-calculator fa-fw"></i>
+                    <i class="fa-solid fa-thumbtack fa-fw"></i>
                     <span>Appointments</span></a>
             </li>
             <!-- Nav Item - Tables -->
@@ -128,8 +128,8 @@
                         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                             <i class="fa fa-bars"></i>
                         </button>
-
-                        <!-- Topbar Search -->
+                        {% block searchField%}
+                        <!-- Topbar Search
                         <form
                             class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
@@ -141,7 +141,8 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                        </form> -->
+                        {% endblock %}
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">

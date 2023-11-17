@@ -7,7 +7,6 @@ from projects.forms import TaskCreationForm
 from projects.forms import ProjectCreationForm
 from django.contrib import messages
 from datetime import datetime
-from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -28,7 +27,7 @@ def projects(request):
 def viewProject(request, pk):
     if request.user.is_authenticated:
         # Look Up tasks and project information
-        tasks = Task.objects.filter(project_id = pk)
+        tasks = Task.objects.filter(project_id = pk,assign = request.user)
         project = Project.objects.get(id=pk)
         return render(request, 'manageproject.html', {'project':project,'tasks':tasks})
     else:

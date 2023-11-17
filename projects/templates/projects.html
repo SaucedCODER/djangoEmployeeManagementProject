@@ -4,6 +4,20 @@
 {% block extra_css%}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
  {% endblock %}
+ {% block searchField%}
+ <form id="customSearchForm"
+     class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+     <div class="input-group">
+         <input type="text" id="customSearchInput" class="form-control bg-light border-0 small" placeholder="Search for..."
+             aria-label="Search" aria-describedby="basic-addon2">
+         <div class="input-group-append">
+             <button class="btn btn-primary" id="customSearchButton" type="button">
+                 <i class="fas fa-search fa-sm"></i>
+             </button>
+         </div>
+     </div>
+ </form>
+ {% endblock %}
 {% block content %}
 <div class="container d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">List of Projects</h1>
@@ -71,12 +85,30 @@
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 
 <script>
-    $(document).ready( function () {
-        $('#projectsTB').DataTable({
+     $(document).ready( function () {
+        const table = $('#projectsTB').DataTable({
             columnDefs: [
                 { targets: -1, orderable: false } // Targets the last column and disables sorting
             ]
         });
+        $('.dataTables_filter').hide();
+    const customSearchInput = document.querySelector('#customSearchInput');
+    const customSearchButton = document.querySelector('#customSearchButton');
+    const customSearchForm = document.querySelector('#customSearchForm');
+    // Add a custom event listener to trigger the DataTable search
+    customSearchInput.addEventListener('keyup', function() {
+        table.search(this.value).draw();
+    });
+    customSearchButton.addEventListener('click', function() {
+        table.search($('#customSearchInput').val()).draw();
+    });
+
+    // Prevent form submission on enter key
+    customSearchForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        table.search($('#customSearchInput').val()).draw();
+    });
     } );
+    
 </script>
 {% endblock %}
