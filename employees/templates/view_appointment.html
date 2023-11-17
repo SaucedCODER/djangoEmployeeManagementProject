@@ -1,22 +1,98 @@
-
-{% extends "core/base.html" %} 
-{% block title %}Employee Page - Dashboard {%endblock %} {% load static %}
-
-{% block content %}
+{% extends "core/base.html" %} {% block title %}Employee Page - Dashboard
+{%endblock %} {% load static %} {% block content %}
 <div class="container-lg" style="max-width: 700px">
-    <div class="card shadow mx-5 my-3">
-      <div class="card-header">
-        <h6 class="m-0 font-weight-bold text-primary">Updating Appointment</h6>
-      </div>
-      <div class="card-body">
-        <form method="post" class="mb-4">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <a href="{% url 'employees:appointment_list' %}" class="btn btn-secondary mr-2">Back to Appointments</a><button type="submit" class="btn btn-primary">Update</button>
-          </form>
-          
-      </div>
+  <div class="card shadow mx-5 my-3">
+    <div class="card-header">
+      <h6 class="m-0 font-weight-bold text-primary">Appointment Full Details</h6>
+    </div>
+    <div class="card-body">
+      <form  class="mb-4">
+       
+        <p>
+          <label for="id_title">Title:</label>
+          <input
+            type="text"
+            name="title"
+            value="{{ appointment.title }}"
+            class="form-control"
+            maxlength="80"
+            required=""
+            id="id_title"
+            disabled
+          />
+        </p>
+
+        <p>
+      <label for="id_date_time">Date Time:</label>
+            <input
+            type="text"
+            name="title"
+            value="{{ appointment.date_time }}"
+            class="form-control"
+            maxlength="80"
+            required=""
+            id="id_date_time"
+            disabled
+          />
+        </p>
+
+        <p>
+          <label for="id_description">Description:</label>
+          <textarea
+            name="description"
+            cols="40"
+            rows="3"
+            class="form-control"
+            required=""
+            id="id_description"
+            disabled
+          >{{ appointment.description }}</textarea
+          >
+        </p>
+        <hr>
+          <p>Administrator Feedback:</p>
+          <p>
+            <label for="id_status">Status:</label>
+            <input
+            type="text"
+            name="title"
+            value="{{ appointment.status }}"
+            class="form-control"
+            maxlength="80"
+            required=""
+            id="id_status"
+            disabled
+          />
+          </p>
+        
+          <p>
+            <label for="id_description">Notes:</label>
+            <textarea
+              name="description"
+              cols="40"
+              rows="3"
+              class="form-control"
+              required=""
+              id="id_description"
+              disabled
+            >{{ appointment.notes }}</textarea
+            >
+          </p>
+        <a href="{% url 'employees:appointment_list' %}" class="btn btn-secondary mr-2"
+          >Back to Appointments</a
+        >
+        <a href="{% url 'employees:update_appointment' appointment.id %}" 
+        class="btn btn-secondary mr-1 ml-auto {% if appointment.status == 'approved' %}
+        disabled
+      {% endif %}" >
+        <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+        <a  onclick="confirmDelete('{{ appointment.id }}','{{ appointment.title }}')" class="btn btn-danger mr-1" >
+          <i class="fa-solid fa-trash-can"></i>
+      </a>
+      </form>
     </div>
   </div>
-  
+</div>
+
 {% endblock %}

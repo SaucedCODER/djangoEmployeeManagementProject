@@ -23,11 +23,10 @@ class Attendance(models.Model):
             date=date,
             defaults={'status': 'present'}
         )
-        # existing_attendance = Attendance.objects.filter(user=user, date=date).first()
-        # if existing_attendance:
-        #     
-        # # If the attendance record already exists, update the status to 'present' and set is_open to False
+        # If the record already exists, update the status to 'present'
         if not created:
+            attendance.status = 'present'
+            attendance.save()
             return False
         else:
             return True

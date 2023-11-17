@@ -1,11 +1,12 @@
 {% extends "core/base.html" %} 
 {% block title %}Employee Page - Dashboard {%endblock %} {% load static %}
  {% block content %}
+<div class="row mx-2">
 
- <div class="container-lg" style="max-width: 700px">
-    <div class="card shadow mx-5 my-3">
+  <div class="container-lg col-4" style="max-width: 700px">
+    <div class="card shadow my-3">
       <div class="card-header">
-        <h6 class="m-0 font-weight-bold text-primary">Open Attendance</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Open Attendances</h6>
       </div>
       <div class="card-body">
         <div class="list-group">
@@ -18,8 +19,27 @@
       </div>
     </div>
   </div>
-
   
+  <div class="container-lg col-8" style="max-width: 800px">
+    <div class="card shadow my-3">
+      <div class="card-header">
+        <h6 class="m-0 font-weight-bold text-primary">List of Attendances</h6>
+      </div>
+      <div class="card-body">
+        <div class="list-group">
+          {% for item in all_attendances %}
+          <button type="button" class="list-group-item list-group-item-action {% if item.status == 'not_set' %}
+          list-group-item-danger
+        {% endif %}" >{{ item.date }} - {% if item.status == 'not_set' %} Not Present {% else %} Present 
+        {% endif %}  </button>
+          {% endfor %}
+        
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
 {% endblock %}
 {% block extra_js %}
 <script>
