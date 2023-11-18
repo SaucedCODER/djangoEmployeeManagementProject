@@ -6,8 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from projects.models import Task, Project
 from employees.models import Attendance
-
 from django.contrib.auth.models import User
+from .models import Notification
+
+
 # Create your views here.
 
 def home(request):
@@ -21,14 +23,18 @@ def home(request):
         present_days = Attendance.present_days_count(user)
         # Get the total number of projects
         total_projects = Project.assigned_projects(user)
+        user_notifications = Notification.objects.filter(user=request.user, is_read=False)
         
         context = { 'total_projects': total_projects, 
                    'total_tasks': total_tasks,
                    'overdue_tasks': overdue_tasks,
                    'completed_tasks': completed_tasks,
                    'completed_projects': completed_projects,
-                    'present_days' : present_days
+                    'present_days' : present_days,
+                    'user_notifications': user_notifications,
+                    'notification_count': user_notifications.count()
                    }
+        
         return render(request,'core/home.html',context)
     return render(request,'core/login.html',{})
 
@@ -53,3 +59,5 @@ def logout_user(request):
     logout(request)
     messages.success(request, "You Have Been Logged Out")
     return redirect('core:home')
+
+

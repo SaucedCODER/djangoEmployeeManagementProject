@@ -52,8 +52,8 @@ class Task(models.Model):
     status = models.CharField(max_length=7, choices=taskStatus, default=1)
     start = models.DateField()
     end = models.DateField()
-    challenges = models.CharField(max_length=80, default=None, null=True, blank=True)
-    progress_update = models.CharField(max_length=80, default=None, null=True, blank=True)
+    challenges = models.TextField(default=None, null=True, blank=True)
+    progress_update = models.TextField(default=None, null=True, blank=True)
 
     def remaining_days(self):
         from datetime import date

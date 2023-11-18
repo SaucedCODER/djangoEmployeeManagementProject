@@ -47,7 +47,7 @@ class Appointment(models.Model):
         ('approved', 'Approved'),
         ('rejected', 'Rejected'),
     ]
-    title = models.TextField()  
+    title = models.CharField(max_length=80, default=None, null=True, blank=True) 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_time = models.DateTimeField()
     description = models.TextField()

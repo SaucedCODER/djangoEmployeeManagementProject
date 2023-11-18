@@ -3,11 +3,9 @@ from django.contrib import admin, messages
 from .models import Attendance
 from django.contrib.auth.models import User
 
-  
-
 # employees/admin.py
 from .models import Appointment
-
+from core.utils import create_notification
 class AppointmentAdmin(admin.ModelAdmin):
     list_display = ('user', 'date_time', 'status', 'description', 'notes')
     list_filter = ('user', 'date_time', 'status')
@@ -16,9 +14,17 @@ class AppointmentAdmin(admin.ModelAdmin):
 
     def approve_selected(self, request, queryset):
         queryset.update(status='approved')
+        for appointment in queryset:
+            create_notification(appointment.user, f"Your appointment on {appointment.date_time} has been approved.")
+
+    approve_selected.short_description = "Mark selected appointments as Approved"
 
     def reject_selected(self, request, queryset):
         queryset.update(status='rejected')
+        for appointment in queryset:
+            create_notification(appointment.user, f"Your appointment on {appointment.date_time} has been rejected.")
+
+    reject_selected.short_description = "Mark selected appointments as Rejected"
 
 admin.site.register(Appointment, AppointmentAdmin)
 
