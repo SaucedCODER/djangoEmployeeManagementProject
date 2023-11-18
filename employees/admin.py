@@ -1,11 +1,13 @@
-# your_app/admin.py
 from django.contrib import admin, messages
 from .models import Attendance
 from django.contrib.auth.models import User
-
-# employees/admin.py
+from django import forms
 from .models import Appointment
 from core.utils import create_notification
+# my_app/admin.py
+from .models import UserProfile
+
+admin.site.register(UserProfile)
 class AppointmentAdmin(admin.ModelAdmin):
     list_display = ('user', 'date_time', 'status', 'description', 'notes')
     list_filter = ('user', 'date_time', 'status')
@@ -15,20 +17,20 @@ class AppointmentAdmin(admin.ModelAdmin):
     def approve_selected(self, request, queryset):
         queryset.update(status='approved')
         for appointment in queryset:
-            create_notification(appointment.user, f"Your appointment on {appointment.date_time} has been approved.")
+            formatted_date_time = appointment.date_time.strftime("%B %d, %Y, %I:%M:%S %p")
+            create_notification(appointment.user, f"Your appointment on {formatted_date_time} has been approved.")
 
     approve_selected.short_description = "Mark selected appointments as Approved"
 
     def reject_selected(self, request, queryset):
         queryset.update(status='rejected')
         for appointment in queryset:
-            create_notification(appointment.user, f"Your appointment on {appointment.date_time} has been rejected.")
+            formatted_date_time = appointment.date_time.strftime("%B %d, %Y, %I:%M:%S %p")
+            create_notification(appointment.user, f"Your appointment on {formatted_date_time} has been rejected.")
 
     reject_selected.short_description = "Mark selected appointments as Rejected"
 
 admin.site.register(Appointment, AppointmentAdmin)
-
-from django import forms
 from django.contrib import admin, messages
 from django.contrib.auth import get_user_model
 from .models import Attendance
@@ -117,7 +119,7 @@ admin.site.register(Attendance, AttendanceAdmin)
 
 
 
-from django import forms
+
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm
 

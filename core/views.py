@@ -7,7 +7,6 @@ from django.contrib import messages
 from projects.models import Task, Project
 from employees.models import Attendance
 from django.contrib.auth.models import User
-from .models import Notification
 
 
 # Create your views here.
@@ -23,7 +22,6 @@ def home(request):
         present_days = Attendance.present_days_count(user)
         # Get the total number of projects
         total_projects = Project.assigned_projects(user)
-        user_notifications = Notification.objects.filter(user=request.user, is_read=False)
         
         context = { 'total_projects': total_projects, 
                    'total_tasks': total_tasks,
@@ -31,8 +29,6 @@ def home(request):
                    'completed_tasks': completed_tasks,
                    'completed_projects': completed_projects,
                     'present_days' : present_days,
-                    'user_notifications': user_notifications,
-                    'notification_count': user_notifications.count()
                    }
         
         return render(request,'core/home.html',context)
@@ -59,5 +55,14 @@ def logout_user(request):
     logout(request)
     messages.success(request, "You Have Been Logged Out")
     return redirect('core:home')
+
+from core.models import Notification
+from django.shortcuts import get_object_or_404
+def mark_as_read(request, notification_id):
+    notification = get_object_or_404(Notification, pk=notification_id)
+    notification.is_read = True
+    notification.save()
+    messages.success(request, "Successfully Marked As Read...")
+    return redirect('employees:appointment_list')
 
 

@@ -12,7 +12,8 @@ urlpatterns = [
     path("",views.home, name="home"),
     path("login/",views.login_user, name="login"),
     path("logout/",views.logout_user, name="logout"),
-    path('admin/', user_passes_test(is_staff)(RedirectView.as_view(url='/admin/')),name='admin')
+    path('admin/', user_passes_test(is_staff)(RedirectView.as_view(url='/admin/')),name='admin'),
+    path('mark-as-read/<int:notification_id>/', views.mark_as_read, name='mark_as_read'),
 ]
 
 if settings.DEBUG:
