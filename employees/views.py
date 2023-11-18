@@ -3,6 +3,60 @@ from .models import Attendance
 from django.contrib import messages
 from itertools import chain
 # Create your views here.
+from django.contrib.auth.decorators import login_required
+from .models import UserProfile
+
+@login_required
+def view_profile(request):
+    user = request.user
+    user_profile = UserProfile.objects.get(user=user)
+    return render(request, 'view_profile.html', {'user': user, 'user_profile': user_profile})
+
+from employees.forms import UserProfileUpdateForm, CustomUserChangeForm, CustomPasswordChangeForm
+
+
+
+@login_required
+def update_profile(request):
+    user_profile = request.user.userprofile
+
+    if request.method == 'POST':
+        user_form = CustomUserChangeForm(request.POST, instance=request.user)
+        profile_form = UserProfileUpdateForm(request.POST, request.FILES, instance=user_profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Profile updated successfully')
+            return redirect('employees:view_profile')
+    else:
+        user_form = CustomUserChangeForm(instance=request.user)
+        profile_form = UserProfileUpdateForm(instance=user_profile)
+
+    return render(request, 'update_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form,
+      
+    })
+from django.contrib.auth import update_session_auth_hash
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Update the session to avoid the user being logged out
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('employees:view_profile')  # Change this to your actual profile view name
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = CustomPasswordChangeForm(request.user)
+
+    return render(request, 'change_password.html', {'form': form})
+
 def openAttendance(request):
     user = request.user
     if user.is_authenticated:

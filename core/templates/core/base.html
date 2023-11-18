@@ -230,21 +230,26 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {% if user.is_authenticated %}
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username }}</span>
-                                    <img class="img-profile rounded-circle"
-                                        src="{% static 'img/undraw_profile.svg' %}">
+                                        {% if zprofile_image %}
+                                            <img class="img-profile rounded-circle" src="{{ zprofile_image }}" alt="Profile Image">
+                                        {% else %}
+                                            <img class="img-profile rounded-circle"
+                                            src="{% static 'img/default_profile.png' %}" alt="Default Avatar">
+                                        {% endif %}
+                                    
                                     {% endif %}
 
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{% url 'employees:view_profile' %}">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Activity Log
+                                    <a class="dropdown-item" href="{% url 'employees:change_password' %}">
+                                        <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Change Password
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">

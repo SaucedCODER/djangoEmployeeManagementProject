@@ -25,44 +25,76 @@ class AppointmentFilterForm(forms.Form):
     status = forms.ChoiceField(choices=STATUS_CHOICES, required=False)
 
 
-from django.core.files.images import get_image_dimensions
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.models import User
 from .models import UserProfile
 
-class UserProfileForm(forms.ModelForm):
+class UserProfileUpdateForm(forms.ModelForm):
+    #   avatar = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'form-control'}))
+
+    avatar = forms.ImageField(required=False)
     class Meta:
         model = UserProfile
         fields = ['avatar']
 
     def clean_avatar(self):
-        avatar = self.cleaned_data.get('avatar')
+        cleaned_avatar = self.cleaned_data.get('avatar')
 
-        if avatar:
+        if cleaned_avatar:
             try:
-                w, h = get_image_dimensions(avatar)
-
-                # validate dimensions
-                max_width = max_height = 100
-                if w > max_width or h > max_height:
-                    raise forms.ValidationError(
-                        u'Please use an image that is '
-                         '%s x %s pixels or smaller.' % (max_width, max_height))
 
                 # validate content type
-                main, sub = avatar.content_type.split('/')
+                main, sub = cleaned_avatar.content_type.split('/')
                 if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
                     raise forms.ValidationError(u'Please use a JPEG, '
                         'GIF, or PNG image.')
-
-                # validate file size
-                if len(avatar) > (20 * 1024):
-                    raise forms.ValidationError(
-                        u'Avatar file size may not exceed 20k.')
+              
 
             except AttributeError:
                 """
-                Handles case when we are updating the user profile
+                Handles the case when we are updating the user profile
                 and do not supply a new avatar
                 """
                 pass
 
-        return avatar
+        return cleaned_avatar
+    
+from django.urls import reverse
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'password']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password'].widget = forms.HiddenInput()
+        self.fields['password'].required = False
+        
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs['class'] = 'form-control'
+
+
+from django.contrib.auth.forms import PasswordChangeForm
+class CustomPasswordChangeForm(PasswordChangeForm):
+    new_password_again = forms.CharField(
+        label="New Password (again)",
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['old_password'].widget.attrs.update({'class': 'form-control'})
+        self.fields['new_password1'].widget.attrs.update({'class': 'form-control'})
+        self.fields['new_password2'].widget.attrs.update({'class': 'form-control'})
+        self.fields['new_password_again'].widget.attrs.update({'class': 'form-control'})
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new_password = cleaned_data.get('new_password1')
+        new_password_again = cleaned_data.get('new_password_again')
+
+        # Check if the two new password fields match
+        if new_password and new_password_again and new_password != new_password_again:
+            raise forms.ValidationError("The two new password fields didn't match.")
+
+        return cleaned_data
