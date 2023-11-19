@@ -111,8 +111,8 @@ Feel free to explore and enhance the system as needed for your specific use case
 
 **Zeus**
 
-- GitHub: [YourGitHubUsername](https://github.com/SaucedCODER)
-- LinkedIn: [Your LinkedIn Profile](https://www.linkedin.com/in/zeus-miguel-orilla-958711264/)
+- GitHub: [SaucedCODER](https://github.com/SaucedCODER)
+- LinkedIn: [Zeus O.](https://www.linkedin.com/in/zeus-miguel-orilla-958711264/)
 
 ---
 
