@@ -96,13 +96,27 @@ Welcome to the Employee Management System, a comprehensive project designed for 
 
 If you'd like to contribute to the project, please follow the [contribution guidelines](CONTRIBUTING.md).
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
 ## Acknowledgments
 
 - Special thanks to [Django](https://www.djangoproject.com/) for providing a powerful web framework.
 - The [Jazzmin](https://github.com/farridav/django-jazzmin) template for enhancing the admin interface.
 
 Feel free to explore and enhance the system as needed for your specific use case. If you encounter any issues or have suggestions, don't hesitate to contribute or reach out for support. Happy coding!
+
+---
+
+## About the Author
+
+![Zeus Coder](screenshots/myP.jpg)
+
+**Zeus**
+
+- GitHub: [YourGitHubUsername](https://github.com/SaucedCODER)
+- LinkedIn: [Your LinkedIn Profile](https://www.linkedin.com/in/zeus-miguel-orilla-958711264/)
+
+---
+
+## License and Copyright
+
+- This project is licensed under the [MIT License](LICENSE).
+- © 2023 Zeus Miguel O.
