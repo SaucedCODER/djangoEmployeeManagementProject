@@ -9,13 +9,13 @@ Welcome to the Employee Management System, a comprehensive project designed for 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/zeus/employee-management-system.git
+    git clone https://github.com/SaucedCODER/djangoEmployeeManagementProject.git
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd employee-management-system
+    cd djangoEmployeeManagementProject
     ```
 
 3. Install dependencies:
