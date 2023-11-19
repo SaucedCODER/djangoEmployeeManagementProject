@@ -32,7 +32,7 @@ Welcome to the Employee Management System, a comprehensive project designed for 
 - Jazzmin template for a modern and user-friendly admin interface.
 - Good safeguard measures in place for the assignment of projects and tasks.
 
-![Admin Panel](screenshots/admin_panel.png)
+![Admin Panel](./screenshots/admin_panel.png)
 
 *Caption: The modern and user-friendly admin panel powered by Django and Jazzmin.*
 
