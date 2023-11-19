@@ -32,7 +32,7 @@ Welcome to the Employee Management System, a comprehensive project designed for 
 - Jazzmin template for a modern and user-friendly admin interface.
 - Good safeguard measures in place for the assignment of projects and tasks.
 
-![Admin Panel](./screenshots/admin_panel.png)
+![Admin Panel](screenshots/admin_panel.png)
 
 *Caption: The modern and user-friendly admin panel powered by Django and Jazzmin.*
 
@@ -123,7 +123,7 @@ Civil engineering has a rich history that spans centuries. From the construction
 
 ### History of Civil Engineering in User Dashboard
 
-[Watch the History of Civil Engineering](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDhnMG8xYXRwcjRmM3p2aWp0emVxdzAyeDQwZmpzZWowNnV5Y28yMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/zZBqKmLLhQepXvgfPJ/giphy.gif)
+![History of Civil Engineering](screenshots/gifhistory.gif)
 
 *Caption: A section in the user dashboard providing insights into the history of civil engineering.*
 
