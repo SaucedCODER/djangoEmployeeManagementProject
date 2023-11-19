@@ -198,7 +198,7 @@
                                     {% for notification in user_notifications %} 
                                     <a class="dropdown-item d-flex align-items-center" href="{% url 'core:mark_as_read' notification.id %}">
                                         <div class="mr-3">
-                                            {% if 'approved' in notification.message  %}
+                                            {% if 'approved' in notification.message or 'sent' in notification.message %}
 
                                             <div class="icon-circle bg-success">
                                                 <i class="fas fa-2x fa-circle-check text-white"></i>
@@ -211,7 +211,7 @@
                                         </div>
                                     
                                         <div>
-                                            <div class="small text-gray-500">{{ notification.timestamp|date:"M, d, Y, D" }}</div>
+                                            <div class="small text-gray-500">{{ notification.timestamp|date:"M, d, Y, D" }}  {{ notification.timestamp|timesince }} ago</div>
                                             <span class="font-weight-bold">{{ notification.message }}</span>
                                         </div>
                                        

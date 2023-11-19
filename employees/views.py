@@ -92,15 +92,19 @@ def setAttendance(request, date):
 # employees/views.py
 from .models import Appointment
 from .forms import AppointmentForm, AppointmentFilterForm
+from core.utils import create_notification
 
 def create_appointment(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = AppointmentForm(request.POST)
             if form.is_valid():
+                date_time = form.cleaned_data['date_time']
                 appointment = form.save(commit=False)
                 appointment.user = request.user
                 appointment.save()
+                formatted_date_time = date_time.strftime("%B %d, %Y, %I:%M:%S %p")
+                create_notification(appointment.user, f"Your appointment on {formatted_date_time} has been sent.")
                 return redirect('employees:appointment_list')
         else:
             form = AppointmentForm()

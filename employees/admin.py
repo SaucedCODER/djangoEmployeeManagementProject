@@ -5,9 +5,7 @@ from django import forms
 from .models import Appointment
 from core.utils import create_notification
 # my_app/admin.py
-from .models import UserProfile
 
-admin.site.register(UserProfile)
 class AppointmentAdmin(admin.ModelAdmin):
     list_display = ('user', 'date_time', 'status', 'description', 'notes')
     list_filter = ('user', 'date_time', 'status')
@@ -50,13 +48,13 @@ class AttendanceAdminForm(forms.ModelForm):
         if 'is_open' in self.fields:
             self.fields['is_open'].widget = NoteCheckboxInput()
     def clean_user(self):
-        # Make sure the user field is not changed during editing
-        if self.instance and self.cleaned_data['user'] != self.instance.user:
+     # Make sure the user field is not changed during editing
+        if self.instance and 'user' in self.cleaned_data and self.cleaned_data['user'] != self.instance.user:
             raise forms.ValidationError("You cannot change the user for an existing record.")
 
         # Check for duplicate records with the same user and date
-        user = self.cleaned_data['user']
-        date = self.cleaned_data['date']
+        user = self.cleaned_data.get('user')
+        date = self.cleaned_data.get('date')
 
         existing_records = Attendance.objects.filter(user=user, date=date).exclude(pk=self.instance.pk if self.instance else None)
 
@@ -117,12 +115,12 @@ class AttendanceAdmin(admin.ModelAdmin):
 
 admin.site.register(Attendance, AttendanceAdmin)
 
-
-
-
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm
-
+from .models import UserProfile
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
+    can_delete = False
 class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = User
@@ -141,3 +139,10 @@ class CustomUserAdmin(UserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 
+from .models import UserProfile
+
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'avatar', 'profession')
+    search_fields = ('user__username', 'user__email', 'profession')  # Add fields you want to search by
+
+admin.site.register(UserProfile, UserProfileAdmin)

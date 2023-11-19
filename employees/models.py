@@ -38,8 +38,6 @@ class Attendance(models.Model):
 #         return super().get_queryset().filter(is_staff=False, is_superuser=False)
 
 # Appointment model
-from django.db import models
-from django.contrib.auth.models import User
 
 class Appointment(models.Model):
     STATUS_CHOICES = [
@@ -59,11 +57,13 @@ class Appointment(models.Model):
 
 #custon userProfile model
 
-from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='avatars/') 
-    
+    profession = models.CharField(max_length=255, blank=True)
     def __str__(self):
         return self.user.username
+    
+    
+

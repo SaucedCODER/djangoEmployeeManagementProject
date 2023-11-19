@@ -119,9 +119,19 @@
                                 <span class="text-success">Done!</span>
                             {% endif %}
                             </td>
-                        <td>
+                        
+                            
+                            {% if task.remaining_days <= 0 %}
+                            <td class="text-danger">
+                                Due
+                            </td>
+                            {% else %}
+                            <td>
                             {{ task.remaining_days }} days
-                        </td>
+                             </td>
+
+                            {% endif %}
+
                         <td>
                             {{ task.challenges|truncatechars:20 }}
                         </td>

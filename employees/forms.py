@@ -30,12 +30,12 @@ from django.contrib.auth.models import User
 from .models import UserProfile
 
 class UserProfileUpdateForm(forms.ModelForm):
-    #   avatar = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'form-control'}))
+    profession = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     avatar = forms.ImageField(required=False)
     class Meta:
         model = UserProfile
-        fields = ['avatar']
+        fields = ['avatar','profession']
 
     def clean_avatar(self):
         cleaned_avatar = self.cleaned_data.get('avatar')

@@ -34,7 +34,7 @@
                             src="{% static 'img/default_profile.png' %}"width="95"height="95" alt="Default Avatar">
                         {% endif %}
                         <h5>{{ user.username }}</h5>
-                        <p>Employee</p>
+                        <p>{{ user_profile.profession }}</p>
                         
                         <a href="{% url 'employees:update_profile' %}" ><i class="far fa-edit mb-5"></i></a>
                       </div>
