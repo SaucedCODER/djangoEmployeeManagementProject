@@ -47,6 +47,6 @@ If you have ideas for new features, feel free to [open an issue](https://github.
 
 ## Contact
 
-If you have questions or need further assistance, you can contact us via [email@example.com](mailto:zeusorilla007@gmail.com).
+If you have questions or need further assistance, you can contact us via [zeusorilla007@gmail.com](mailto:zeusorilla007@gmail.com).
 
 Thank you for contributing to the Employee Management System! @zeus - happy coding!
