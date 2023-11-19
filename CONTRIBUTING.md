@@ -2,10 +2,6 @@
 
 Thank you for your interest in contributing to the Employee Management System. Your contributions are highly valued.
 
-## Code of Conduct
-
-Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing. Be respectful and follow the guidelines to create a positive and inclusive environment.
-
 ## How to Contribute
 
 1. Fork the repository.
@@ -43,14 +39,14 @@ To set up the development environment, follow the [Installation](README.md#insta
 
 ## Issues and Bug Reports
 
-If you encounter issues or find bugs, please [create an issue](https://github.com/zeus/employee-management-system/issues) with a detailed description of the problem and steps to reproduce it.
+If you encounter issues or find bugs, please [create an issue](https://github.com/SaucedCODER/djangoEmployeeManagementProject/issues) with a detailed description of the problem and steps to reproduce it.
 
 ## Feature Requests
 
-If you have ideas for new features, feel free to [open an issue](https://github.com/zeus/employee-management-system/issues) to discuss them. We welcome your input!
+If you have ideas for new features, feel free to [open an issue](https://github.com/SaucedCODER/djangoEmployeeManagementProject/issues) to discuss them. We welcome your input!
 
 ## Contact
 
-If you have questions or need further assistance, you can contact us via [email@example.com](mailto:email@example.com).
+If you have questions or need further assistance, you can contact us via [email@example.com](mailto:zeusorilla007@gmail.com).
 
-Thank you for contributing to the Employee Management System!
+Thank you for contributing to the Employee Management System! @zeus - happy coding!
