@@ -6,13 +6,15 @@ class TaskAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        # Customize the 'assign' field queryset based on the associated project
+         # Customize the 'assign' field queryset based on the associated project
         if 'project' in self.fields:
-            project_id = self['project'].value()
-            if project_id:
+            project_id = self.cleaned_data.get('project')
+            try:
+                project_id = int(project_id)
                 project = Project.objects.get(pk=project_id)
                 self.fields['assign'].queryset = project.assign.all()
-            else:
+            except (ValueError, Project.DoesNotExist):
+                # Handle the case where project_id is not a valid integer or project doesn't exist
                 self.fields['assign'].queryset = User.objects.none()
 
 class TaskAdmin(admin.ModelAdmin):

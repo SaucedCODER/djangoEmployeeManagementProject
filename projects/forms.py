@@ -82,7 +82,7 @@ class ProjectCreationForm(forms.ModelForm):
     name = forms.CharField(max_length=80)
     dead_line = forms.DateField()
     complete_per = forms.FloatField(min_value=0, max_value=100)
-    description = forms.CharField(widget=forms.Textarea)
+    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Project description...', 'readonly': True}))
  
     class Meta:
         model = Project
@@ -137,10 +137,3 @@ class ProjectCreationForm(forms.ModelForm):
             'readonly': True
         })
 
-        self.fields['description'].widget = forms.Textarea(attrs={
-            'class': 'form-control',
-            'placeholder': 'Type here the project description...'
-            ,'readonly': True
-        })
-        
-     
