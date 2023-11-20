@@ -48,18 +48,21 @@ class AttendanceAdminForm(forms.ModelForm):
         if 'is_open' in self.fields:
             self.fields['is_open'].widget = NoteCheckboxInput()
     def clean_user(self):
-     # Make sure the user field is not changed during editing
-        if self.instance and 'user' in self.cleaned_data and self.cleaned_data['user'] != self.instance.user:
-            raise forms.ValidationError("You cannot change the user for an existing record.")
+        
+        user = self.cleaned_data.get('user')
+
+        if self.instance and self.instance.pk:
+            # Ensure 'user' is set before accessing its value
+            if user is not None and user != self.instance.user:
+                raise forms.ValidationError("You cannot change the user for an existing record.")
 
         # Check for duplicate records with the same user and date
-        user = self.cleaned_data.get('user')
         date = self.cleaned_data.get('date')
+        if user and date:
+             existing_records = Attendance.objects.filter(user=user, date=date).exclude(pk=self.instance.pk if self.instance else None)
 
-        existing_records = Attendance.objects.filter(user=user, date=date).exclude(pk=self.instance.pk if self.instance else None)
-
-        if existing_records.exists():
-            raise forms.ValidationError('An attendance record for this user and date already exists.')
+             if existing_records.exists():
+                raise forms.ValidationError('An attendance record for this user and date already exists.')
 
         return user
     class Meta:
@@ -86,7 +89,6 @@ class AttendanceAdmin(admin.ModelAdmin):
             form.base_fields['status'].disabled = False
             form.base_fields.pop('is_open', None)
 
-        
 
         return form
 
