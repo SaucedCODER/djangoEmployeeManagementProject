@@ -5,7 +5,9 @@ def profile_image(request):
 
     if request.user.is_authenticated:
         try:
-            profile_image = request.user.userprofile.avatar.url
+            user_profile = request.user.userprofile
+            if user_profile.avatar and hasattr(user_profile.avatar, 'url'):
+                profile_image = user_profile.avatar.url
         except UserProfile.DoesNotExist:
             pass
 
