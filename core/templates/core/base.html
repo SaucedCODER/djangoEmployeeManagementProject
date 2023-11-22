@@ -115,9 +115,28 @@
         </ul>
         <!-- End of Sidebar -->
         {% endblock %}
+        <style>
+            .bg-containerz{
+                position: relative;
+                z-index:1;
+                overflow:hidden; /*if you want to crop the image*/
+            }
+            .bg-containerz:before{
+                content: '';
+                z-index:-1;
+                position:absolute;
+                right: -10rem;
+                top: 0rem;
+                width: 70vw;
+                height: 100vh;
+                background: url("{% static 'img/logoCivilTech.png' %}") center center / cover no-repeat;
+                opacity:.08;
+            }
+        </style>
             <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-            
+            <div id="content-wrapper" class="d-flex flex-column bg-containerz" >
+
+               
                 <!-- Main Content -->
                 <div id="content">
                     {% block topbar %}
