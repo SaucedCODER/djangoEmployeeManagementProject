@@ -25,20 +25,42 @@ Hello and welcome to our Employee Management System! This is a basic yet powerfu
     ```
 
 4. Set up MySQL database in XAMPP and update database configurations in `settings.py`.
+5. 
+ ## Database Configuration
 
-5. Apply database migrations:
+In `settings.py`, update the `DATABASES` section with your MySQL configuration:
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'your_database_name',
+        'USER': 'your_database_user',
+        'PASSWORD': 'your_database_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+
+5. ## Access the Application
+
+After completing the installation steps, access the application at [http://localhost:8000](http://localhost:8000).
+
+
+6. Apply database migrations:
 
     ```bash
     python manage.py migrate
     ```
 
-6. Run the development server:
+7. Run the development server:
 
     ```bash
     python manage.py runserver
     ```
 
-7. Access the application at [http://localhost:8000](http://localhost:8000).
+8. Access the application at [http://localhost:8000](http://localhost:8000).
 
 ## Features
 
