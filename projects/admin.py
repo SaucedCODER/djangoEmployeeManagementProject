@@ -45,7 +45,6 @@ class TaskAdmin(admin.ModelAdmin):
             obj.creator = request.user
         super().save_model(request, obj, form, change)
 
-
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ['name', 'status']
     list_filter = ['status']

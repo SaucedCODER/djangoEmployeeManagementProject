@@ -48,7 +48,6 @@ class AttendanceAdminForm(forms.ModelForm):
         if 'is_open' in self.fields:
             self.fields['is_open'].widget = NoteCheckboxInput()
     def clean_user(self):
-        
         user = self.cleaned_data.get('user')
 
         if self.instance and self.instance.pk:
@@ -89,6 +88,7 @@ class AttendanceAdmin(admin.ModelAdmin):
             form.base_fields['status'].disabled = False
             form.base_fields.pop('is_open', None)
 
+        
 
         return form
 
@@ -130,10 +130,13 @@ class CustomUserChangeForm(UserChangeForm):
 
 class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
+    list_filter = ['is_active', 'is_staff', 'date_joined'] 
+    list_display = ['username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'date_joined']  # Add 'is_active' to list_display
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
         # Add or customize other fields as needed
+         (('Permissions'), {'fields': ('is_active', 'is_staff',)}),
         (('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
 
@@ -145,6 +148,6 @@ from .models import UserProfile
 
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'avatar', 'profession')
-    search_fields = ('user__username', 'user__email', 'profession')  # Add fields you want to search by
+    search_fields = ('user__username', 'user__email', 'profession')
 
 admin.site.register(UserProfile, UserProfileAdmin)

@@ -15,9 +15,7 @@ def home(request):
     user = request.user
     if request.user.is_authenticated:
         if user is not None and user.is_staff is True:
-                logout(request, user)
-                messages.success(request, "You Have Been Logged Out!")
-                return redirect('core:login')
+            return redirect('core:admin')
         # Get the total number of tasks
         total_tasks = Task.user_tasks(user)
         overdue_tasks = Task.overdue_tasks(user)
