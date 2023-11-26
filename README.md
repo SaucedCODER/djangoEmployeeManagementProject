@@ -41,7 +41,7 @@ DATABASES = {
     }
 }
 
-
+```
 
 5. Apply database migrations:
 
