@@ -55,7 +55,7 @@ DATABASES = {
     python manage.py runserver 8080
     ```
 
-7. Access the application at [http://localhost:8000](http://localhost:8080).
+7. Access the application at [http://localhost:8080](http://localhost:8080).
 
 ## Features
 
