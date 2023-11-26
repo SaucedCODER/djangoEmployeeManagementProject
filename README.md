@@ -25,19 +25,19 @@ It's recommended to use a virtual environment for your project. Follow these ste
 
 ```bash
 python -m venv venv
-
+```
 ### Activate the Virtual Environment:
 
 On Windows:
 
 ```bash
 .\venv\Scripts\activate
-
+```
 On Linux/Bash:
 
 ```bash
 source venv/bin/activate
-
+```
 
 3. Install dependencies:
 
