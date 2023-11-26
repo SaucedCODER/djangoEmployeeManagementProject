@@ -17,6 +17,27 @@ Hello and welcome to our Employee Management System! This is a basic yet powerfu
     ```bash
     cd djangoEmployeeManagementProject
     ```
+## Virtual Environment
+
+It's recommended to use a virtual environment for your project. Follow these steps to set up and activate the virtual environment:
+
+### Create a virtual environment:
+
+```bash
+python -m venv venv
+
+### Activate the Virtual Environment:
+
+On Windows:
+
+```bash
+.\venv\Scripts\activate
+
+On Linux/Bash:
+
+```bash
+source venv/bin/activate
+
 
 3. Install dependencies:
 
