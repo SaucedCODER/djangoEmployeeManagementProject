@@ -1,6 +1,6 @@
 # Employee Management System - 2023
 
-## Introduction
+## Introduction - Utilizing what i learned
 
 Hello and welcome to our Employee Management System! This is a basic yet powerful tool that handles attendance, appointments, user profiles, and project/task management. It's simple, functional, and here to make your work life easier. Let's dive in and get things done! 👌
 
