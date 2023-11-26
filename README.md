@@ -25,7 +25,6 @@ Hello and welcome to our Employee Management System! This is a basic yet powerfu
     ```
 
 4. Set up MySQL database in XAMPP and update database configurations in `settings.py`.
-5. 
  ## Database Configuration
 
 In `settings.py`, update the `DATABASES` section with your MySQL configuration:
@@ -43,24 +42,20 @@ DATABASES = {
 }
 
 
-5. ## Access the Application
 
-After completing the installation steps, access the application at [http://localhost:8000](http://localhost:8000).
-
-
-6. Apply database migrations:
+5. Apply database migrations:
 
     ```bash
     python manage.py migrate
     ```
 
-7. Run the development server:
+6. Run the development server:
 
     ```bash
     python manage.py runserver
     ```
 
-8. Access the application at [http://localhost:8000](http://localhost:8000).
+7. Access the application at [http://localhost:8000](http://localhost:8000).
 
 ## Features
 
