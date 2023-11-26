@@ -52,10 +52,10 @@ DATABASES = {
 6. Run the development server:
 
     ```bash
-    python manage.py runserver
+    python manage.py runserver 8080
     ```
 
-7. Access the application at [http://localhost:8000](http://localhost:8000).
+7. Access the application at [http://localhost:8000](http://localhost:8080).
 
 ## Features
 
