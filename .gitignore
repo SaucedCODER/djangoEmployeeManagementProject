@@ -4,3 +4,11 @@ __pycache__/
 
 # Ignore virtual environment
 venv/
+# Ignore media files
+media/
+
+# Ignore static files
+staticfiles/
+
+# Ignore Django migration files
+*/migrations/
