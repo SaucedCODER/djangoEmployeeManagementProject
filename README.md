@@ -1,6 +1,6 @@
 # Employee Management System - 2023
 
-## Introduction
+## Introduction 
 
 Hello and welcome to our Employee Management System! This is a basic yet powerful tool that handles attendance, appointments, user profiles, and project/task management. It's simple, functional, and here to make your work life easier. Let's dive in and get things done! 👌
 
@@ -17,6 +17,27 @@ Hello and welcome to our Employee Management System! This is a basic yet powerfu
     ```bash
     cd djangoEmployeeManagementProject
     ```
+## Virtual Environment
+
+It's recommended to use a virtual environment for your project. Follow these steps to set up and activate the virtual environment:
+
+### Create a virtual environment:
+
+```bash
+python -m venv venv
+```
+### Activate the Virtual Environment:
+
+On Windows:
+
+```bash
+.\venv\Scripts\activate
+```
+On Linux/Bash:
+
+```bash
+source venv/bin/activate
+```
 
 3. Install dependencies:
 
@@ -25,6 +46,23 @@ Hello and welcome to our Employee Management System! This is a basic yet powerfu
     ```
 
 4. Set up MySQL database in XAMPP and update database configurations in `settings.py`.
+ ## Database Configuration
+
+In `settings.py`, update the `DATABASES` section with your MySQL configuration:
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'your_database_name',
+        'USER': 'your_database_user',
+        'PASSWORD': 'your_database_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+```
 
 5. Apply database migrations:
 
@@ -35,10 +73,10 @@ Hello and welcome to our Employee Management System! This is a basic yet powerfu
 6. Run the development server:
 
     ```bash
-    python manage.py runserver
+    python manage.py runserver 8080
     ```
 
-7. Access the application at [http://localhost:8000](http://localhost:8000).
+7. Access the application at [http://localhost:8080](http://localhost:8080).
 
 ## Features
 
