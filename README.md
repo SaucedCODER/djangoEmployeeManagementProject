@@ -147,7 +147,7 @@ Feel free to explore and enhance the system as needed for your specific use case
 
 
 <p align="center">
-  <img src="screenshots/myP.png" alt="My Profile Img" width="100" height="100" style="border-radius:50%">
+  <img src="screenshots/myP.png" alt="My Profile Img" width="200" height="200" style="border-radius:50%">
 </p>
 <p align="center">
   <strong>SaucedCODER</strong>
