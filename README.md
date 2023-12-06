@@ -145,7 +145,7 @@ Feel free to explore and enhance the system as needed for your specific use case
 
 ## About the Author
 
-![Zeus Coder](screenshots/myP.jpg)
+![Zeus Coder](screenshots/myP.png)
 
 **Zeus**
 
