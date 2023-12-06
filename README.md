@@ -145,7 +145,9 @@ Feel free to explore and enhance the system as needed for your specific use case
 
 ## About the Author
 
-![Zeus Coder](screenshots/myP.png | width="30%")
+
+<img src="screenshots/myP.png" alt="My Profile Img" width="50%" />
+
 
 **Zeus**
 
