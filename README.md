@@ -146,7 +146,10 @@ Feel free to explore and enhance the system as needed for your specific use case
 ## About the Author
 
 
-<img src="screenshots/myP.png" alt="My Profile Img" width="50%" />
+<div style="text-align: center;">
+  <img src="screenshots/myP.png" alt="My Profile Img" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
+  <p style="margin-top: 10px; font-weight: bold;">SaucedCODER </p>
+</div>
 
 
 **Zeus**
